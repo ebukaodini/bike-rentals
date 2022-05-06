@@ -1,0 +1,46 @@
+The requirements for the test project are:
+  Write an application to manage bike rentals:
+    ✔ The application must be React-based. @done(22-05-06 16:33)
+    ☐ Include at least 2 user roles: Manager and User.
+    ☐ Users must be able to create an account and log in.
+    ☐ Each bike will have the following information in the profile: 
+      ☐ Model, 
+      ☐ Color, 
+      ☐ Location, 
+      ☐ Rating, 
+      ☐ and a checkbox indicating if the bike is available for rental or not.
+  
+  Managers can:
+    Bikes:
+      ☐ Create Bikes
+      ☐ Read Bikes
+      ☐ Edit Bikes
+      ☐ Delete Bikes
+    Users:
+      ☐ Create Users
+      ☐ Read Users
+      ☐ Edit Users
+      ☐ Delete Users
+    Managers:
+      ☐ Create Managers
+      ☐ Read Managers
+      ☐ Edit Managers
+      ☐ Delete Managers
+    ☐ See all the users who reserved a bike, and the period of time they did it.
+    ☐ See all the bikes reserved by a user and the period of time they did it.
+  
+  Users can:
+    ☐ See a list of all available bikes for some specific dates.
+    Filter by:
+      ☐ model, 
+      ☐ color, 
+      ☐ location, or 
+      ☐ rate averages.
+    ☐ Reserve a bike for a specific period of time.
+    ☐ Rate the bikes with a score of 1 to 5.
+    ☐ Cancel a reservation.
+  
+  Other notes:
+    + You may use Firebase or similar services for the back-end.
+    + However, if you opt for this method, you should be able to explain how a REST API work
+  
