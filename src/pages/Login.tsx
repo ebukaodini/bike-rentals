@@ -49,7 +49,10 @@ export const Login: React.FC<{}> = () => {
     login(credentials)
       .then(_ => {
         setIsSubmitting(false)
-        push('/')
+        const user = useAuthStore.getState().user!
+        if (user.role === 'user')
+          push('/')
+        else push('/dashboard')
       })
       .catch(error => {
         setIsSubmitting(false)

@@ -1,8 +1,9 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { onValue, ref } from "firebase/database";
 import create, { State } from "zustand";
 import { persist } from "zustand/middleware";
 import { User, useUserStore, RegisterCredentials } from "./";
-import { auth } from './firebase'
+import { auth, database } from './firebase'
 
 export type LoginCredentials = {
   email: string
@@ -21,6 +22,7 @@ interface AuthMethods extends State {
   login: (
     credential: LoginCredentials
   ) => Promise<any>
+  logout: () => void
 }
 
 export const useAuthStore = create<AuthState & AuthMethods>(
@@ -40,11 +42,25 @@ export const useAuthStore = create<AuthState & AuthMethods>(
       login: async (credential) => {
         return signInWithEmailAndPassword(auth, credential.email!, credential.password!)
           .then((userCredential) => {
-            console.log(userCredential.user);
+            const { uid } = userCredential.user;
+
+            const userRef = ref(database, 'users/' + uid)
+            onValue(userRef, (snapshot) => {
+              const user = snapshot.val()
+              set({
+                authenticated: true,
+                user: user
+              })
+            })
           })
-          .catch((error) => {
-            throw error
+      },
+      logout: () => {
+        auth.signOut().then(_ => {
+          set({
+            authenticated: false,
+            user: undefined
           })
+        })
       }
     }), {
     name: 'auth'

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import { PageWrapper } from "../components"
 import { useAuthStore } from "../store"
 
-export const Store: React.FC<{}> = () => {
+export const Dashboard: React.FC<{}> = () => {
 
   const { authenticated, user, logout } = useAuthStore()
 
@@ -10,7 +10,7 @@ export const Store: React.FC<{}> = () => {
     <div>
       <PageWrapper>
         <>
-          <h1>Welcome to Bike Rentals</h1>
+          <h1>Welcome to Bike Rentals Dashboard</h1>
 
           {
             authenticated ?

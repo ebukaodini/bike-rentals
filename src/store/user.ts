@@ -32,6 +32,9 @@ interface UserState extends State {
 
 interface UserMethods extends State {
   getUsers: () => Promise<any>
+  getUser: (
+    uid: string
+  ) => any
   createUser: (
     user: RegisterCredentials
   ) => Promise<any>
@@ -42,21 +45,43 @@ export const useUserStore = create<UserState & UserMethods>(
     (get, set) => ({
       users: [],
       getUsers: async () => {
-
         const usersRef = ref(database, 'users/')
         onValue(usersRef, (snapshot) => {
           const data = snapshot.val()
           console.log(snapshot, data)
         })
-
         return []
       },
+      getUser: (uid) => {
+        const userRef = ref(database, 'users/' + uid)
+        onValue(userRef, (snapshot) => {
+          snapshot.val()
+        });
+      },
       createUser: async (user) => {
-
         return createUserWithEmailAndPassword(auth, user.email, user.password)
-          .then((userCredential) => {
+          .then(async (userCredential) => {
+
             const { uid } = userCredential.user;
-            const { firstname, lastname, email, role } = user
+
+            // check if user is the first user
+            const getNewUser =
+              () => new Promise<RegisterCredentials>((res, rej) => {
+                const userRef = ref(database, 'users/')
+                onValue(userRef, (snapshot) => {
+                  const users = snapshot.val()
+
+                  // make first user the super admin
+                  if (Boolean(users) === false) {
+                    user.role = 'super-admin'
+                  }
+
+                  res(user)
+                })
+              })
+
+            const { firstname, lastname, email, role } = await getNewUser()
+            
             const newUser = {
               id: uid,
               firstname, lastname, email, role
@@ -65,9 +90,6 @@ export const useUserStore = create<UserState & UserMethods>(
             dbSet(ref(database, 'users/' + uid), newUser)
             return newUser
           })
-          .catch((error) => {
-            throw error
-          });
       },
     }), {
     name: 'user'
