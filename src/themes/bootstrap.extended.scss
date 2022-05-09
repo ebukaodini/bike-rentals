@@ -1,0 +1,27 @@
+// set theme color variables
+@import 'theme';
+
+// set theme colors for more theme colors
+$theme-colors: (
+  "primary": $primary,
+  "active": $active,
+  "alt": $alt,
+  "light": $light,
+  "alt-light": $alt-light,
+  "dark": $dark,
+  "grey": $grey,
+  "neutral": $neutral,
+  "success": $success,
+  "warning": $warning,
+  "danger": $danger
+) !default;
+
+// buttons
+$btn-padding-x-sm: 16px;
+$btn-padding-y-sm: 5px;
+$btn-padding-x: 18px;
+$btn-padding-y: 7px;
+$btn-padding-x-lg: 24px;
+$btn-padding-y-lg: 9px;
+
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
