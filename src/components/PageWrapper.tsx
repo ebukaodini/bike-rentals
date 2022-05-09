@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 const Wrapper = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
 `
 const Body = styled.div`
@@ -10,13 +10,13 @@ const Body = styled.div`
 
 type props = {
   children: JSX.Element
+  className?: string
 }
 
-export const PageWrapper: React.FC<props> = ({ children }) => {
-
+export const PageWrapper: React.FC<props> = ({ children, className }) => {
   return (
     <Wrapper className='bg-alt-light'>
-      <Body className="container-lg text-dark">
+      <Body className={className}>
         {children}
       </Body>
     </Wrapper>

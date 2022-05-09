@@ -68,7 +68,7 @@ export const Register: React.FC<{}> = () => {
 
   return (
     <div>
-      <PageWrapper>
+      <PageWrapper className="container-lg text-dark vh-100">
 
         <FormWrapper className="h-100 d-flex align-items-center justify-content-center">
 
