@@ -1,6 +1,13 @@
+import { signInWithEmailAndPassword } from "firebase/auth";
 import create, { State } from "zustand";
 import { persist } from "zustand/middleware";
-import { User } from "./user";
+import { User, useUserStore, RegisterCredentials } from "./";
+import { auth } from './firebase'
+
+export type LoginCredentials = {
+  email: string
+  password: string
+}
 
 interface AuthState extends State {
   user?: User
@@ -8,20 +15,36 @@ interface AuthState extends State {
 }
 
 interface AuthMethods extends State {
-  createAccount: () => Promise<any>
-  login: () => Promise<any>
+  createAccount: (
+    user: RegisterCredentials
+  ) => Promise<any>
+  login: (
+    credential: LoginCredentials
+  ) => Promise<any>
 }
 
-export const UserStore = create<AuthState & AuthMethods>(
+export const useAuthStore = create<AuthState & AuthMethods>(
   persist(
-    (get, set) => ({
+    (set, get) => ({
       authenticated: false,
       user: undefined,
-      createAccount: async () => {
-        return
+      createAccount: async (user) => {
+        return useUserStore.getState().createUser(user)
+          .then(user => {
+            set({
+              authenticated: true,
+              user: user
+            })
+          })
       },
-      login: async () => {
-        return
+      login: async (credential) => {
+        return signInWithEmailAndPassword(auth, credential.email!, credential.password!)
+          .then((userCredential) => {
+            console.log(userCredential.user);
+          })
+          .catch((error) => {
+            throw error
+          })
       }
     }), {
     name: 'auth'

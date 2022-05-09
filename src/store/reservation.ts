@@ -21,7 +21,7 @@ interface ReservationMethods extends State {
   getReservations: () => Promise<any>
 }
 
-export const ReservationStore = create<ReservationState & ReservationMethods>(
+export const useReservationStore = create<ReservationState & ReservationMethods>(
   persist((get, set) => ({
     reservations: [],
     getReservations: async () => {

@@ -1,20 +1,29 @@
 import create, { State } from "zustand";
 import { persist } from "zustand/middleware";
 import { ref, onValue, set as dbSet } from "firebase/database";
-import { database } from './firebase'
-import { generate, verify } from 'password-hash'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { database, auth } from './firebase'
 
-type Role = {
-  id: number
-  role: string
-  access: string[]
-}
+// type Role = {
+//   id: number
+//   role: string
+//   access: string[]
+// }
 
 export type User = {
   id: number
+  firstname: string
+  lastname: string
+  email: string
+  role: string
+}
+
+export type RegisterCredentials = {
+  firstname: string
+  lastname: string
   email: string
   password: string
-  role: Role
+  role: string
 }
 
 interface UserState extends State {
@@ -24,11 +33,11 @@ interface UserState extends State {
 interface UserMethods extends State {
   getUsers: () => Promise<any>
   createUser: (
-    user: User
+    user: RegisterCredentials
   ) => Promise<any>
 }
 
-export const UserStore = create<UserState & UserMethods>(
+export const useUserStore = create<UserState & UserMethods>(
   persist(
     (get, set) => ({
       users: [],
@@ -44,19 +53,22 @@ export const UserStore = create<UserState & UserMethods>(
       },
       createUser: async (user) => {
 
-        const passwordHash = generate(user.password, {
-          algorithm: 'sha256',
-          saltLength: 32
-        })
+        return createUserWithEmailAndPassword(auth, user.email, user.password)
+          .then((userCredential) => {
+            const { uid } = userCredential.user;
+            const { firstname, lastname, email, role } = user
+            const newUser = {
+              id: uid,
+              firstname, lastname, email, role
+            }
 
-        dbSet(ref(database, 'users/'), {
-          ...user,
-          password: passwordHash
-        }).then(resp => {
-          console.log(resp)
-        })
-
-      }
+            dbSet(ref(database, 'users/' + uid), newUser)
+            return newUser
+          })
+          .catch((error) => {
+            throw error
+          });
+      },
     }), {
     name: 'user'
   })

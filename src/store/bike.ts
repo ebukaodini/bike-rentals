@@ -19,7 +19,7 @@ interface BikeMethods extends State {
   getBikes: () => Promise<any>
 }
 
-export const BikeStore = create<BikeState & BikeMethods>(
+export const useBikeStore = create<BikeState & BikeMethods>(
   persist((get, set) => ({
     bikes: [],
     getBikes: async () => {
