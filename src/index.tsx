@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import './themes/bootstrap.extended.scss';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+import { Theme } from './themes/themes';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -14,7 +16,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <BrowserRouter>
     <React.StrictMode>
-      <App />
+      <ThemeProvider theme={Theme}>
+        <App />
+      </ThemeProvider>
     </React.StrictMode>
   </BrowserRouter>
 );
