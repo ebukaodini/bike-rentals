@@ -2,7 +2,7 @@ The requirements for the test project are:
   Write an application to manage bike rentals:
     ✔ The application must be React-based. @done(22-05-06 16:33)
     ☐ Include at least 2 user roles: Manager and User.
-    ☐ Users must be able to create an account and log in.
+    ✔ Users must be able to create an account and log in. @done(22-05-09 01:14)
     ☐ Each bike will have the following information in the profile: 
       ☐ Model, 
       ☐ Color, 
