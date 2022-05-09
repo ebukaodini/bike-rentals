@@ -10,20 +10,19 @@ const Wrapper = styled.div`
   width: 100%;
 `
 const LogoWrapper = styled.div`
-  height: 70px;
+  height: 60px;
   width: fit-content;
 
   img {
     height: 100%;
     width: 100%;
     object-fit: contain;
-    /* border-radius: 50%; */
   }
 `
 const ActionWrapper = styled.div``
 const Action = styled.div`
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
 
   display: flex;
   align-items: center;
@@ -59,11 +58,11 @@ export const Header: React.FC<{}> = () => {
             </Link>
           </LogoWrapper>
 
-          <ActionWrapper className="h-100 d-flex align-items-center justify-content-between gap-lg-3">
+          <ActionWrapper className="h-100 d-flex align-items-center justify-content-between gap-lg-1">
 
             {
               authenticated &&
-              <h4 className="m-0 p-0 fw-bolder text-alt">{user?.firstname}</h4>
+              <h4 className="m-0 p-0 me-4 fw-bolder text-alt">{user?.firstname}</h4>
             }
 
             {
@@ -71,13 +70,13 @@ export const Header: React.FC<{}> = () => {
                 user?.role === 'user' ?
                   <Action title="Go to Reservations">
                     <Link to='/reservations'>
-                      <Pocket size={32} />
+                      <Pocket size={24} />
                     </Link>
                   </Action>
                   :
                   <Action title="Go to Dashboard">
                     <Link to='/dashboard'>
-                      <Layout size={32} />
+                      <Layout size={24} />
                     </Link>
                   </Action>
                 : <></>
@@ -87,13 +86,13 @@ export const Header: React.FC<{}> = () => {
               authenticated ?
                 <Action title="Logout">
                   <button onClick={handleLogout} type="button" className="btn btn-sm m-0 p-0">
-                    <LogOut size={32} />
+                    <LogOut size={24} />
                   </button>
                 </Action>
                 :
                 <Action title="Login">
                   <Link to='/login'>
-                    <LogIn size={32} />
+                    <LogIn size={24} />
                   </Link>
                 </Action>
             }
