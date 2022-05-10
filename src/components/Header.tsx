@@ -2,7 +2,6 @@ import { Layout, LogIn, LogOut, Pocket } from "react-feather"
 import { Link, useHistory } from "react-router-dom"
 import styled from "styled-components"
 import Logo from '../assets/logo.svg'
-// import TextLogo from '../assets/bike-rentals.svg'
 import { useAuthStore } from "../store"
 
 const Wrapper = styled.div`
@@ -51,18 +50,20 @@ export const Header: React.FC<{}> = () => {
       <div className="container-lg h-100">
         <div className="h-100 d-flex justify-content-between align-items-center">
 
-          <LogoWrapper>
-            <Link to='/'>
-              <img src={Logo} alt="Bike Rentals" title="Bike Rentals" className="w-100 h-100" />
-              {/* <img src={TextLogo} alt="Bike Rentals" title="Bike Rentals" className="w-100 h-100" /> */}
-            </Link>
-          </LogoWrapper>
+          <div className="d-flex gap-2 align-items-center">
+            <LogoWrapper>
+              <Link to='/' className="">
+                <img src={Logo} alt="Bike Rentals" title="Bike Rentals" className="w-100 h-100" />
+              </Link>
+            </LogoWrapper>
+            <div className="text-alt h2 m-0 p-0 fw-bold">Bike Rentals</div>
+          </div>
 
           <ActionWrapper className="h-100 d-flex align-items-center justify-content-between gap-lg-1">
 
             {
               authenticated &&
-              <h4 className="m-0 p-0 me-4 fw-bolder text-alt">{user?.firstname}</h4>
+              <h5 className="m-0 p-0 me-4 fw-bold">{user?.firstname}</h5>
             }
 
             {
