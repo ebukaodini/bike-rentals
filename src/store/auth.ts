@@ -89,6 +89,8 @@ export const useAuthStore = create<AuthState & AuthMethods>(
         auth.signOut().then(_ => {
           get().restoreDefault()
           useUserStore.getState().restoreDefault()
+          useBikeStore.getState().restoreDefault()
+          useReservationStore.getState().restoreDefault()
         })
       }
     }), {
