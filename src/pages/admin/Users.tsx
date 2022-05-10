@@ -59,23 +59,28 @@ export const Users: React.FC<{}> = () => {
             </thead>
             <tbody>
               {
-                users.map((user, index) => (
-                  <Row key={index}>
-                    <td>{index + 1}</td>
-                    <td>{user.firstname} {user.lastname}</td>
-                    <td>{user.email}</td>
-                    <td>
-                      <div className="d-flex align-items-center gap-3">
-                        <Action onClick={() => handleEditUser(user)} className="btn btn-sm">
-                          <Edit2 size={16} />
-                        </Action>
-                        <Action onClick={() => handleDeleteUser(user)} className="btn btn-sm text-danger">
-                          <Trash2 size={16} />
-                        </Action>
-                      </div>
-                    </td>
+                users.length > 0 ?
+                  users.map((user, index) => (
+                    <Row key={index}>
+                      <td>{index + 1}</td>
+                      <td>{user.firstname} {user.lastname}</td>
+                      <td>{user.email}</td>
+                      <td>
+                        <div className="d-flex align-items-center gap-3">
+                          <Action onClick={() => handleEditUser(user)} className="btn btn-sm">
+                            <Edit2 size={16} />
+                          </Action>
+                          <Action onClick={() => handleDeleteUser(user)} className="btn btn-sm text-danger">
+                            <Trash2 size={16} />
+                          </Action>
+                        </div>
+                      </td>
+                    </Row>
+                  ))
+                  :
+                  <Row>
+                    <td colSpan={4} className='text-center'>No Users.</td>
                   </Row>
-                ))
               }
             </tbody>
           </table>
