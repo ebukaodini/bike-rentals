@@ -1,14 +1,14 @@
 The requirements for the test project are:
   Write an application to manage bike rentals:
     ✔ The application must be React-based. @done(22-05-06 16:33)
-    ☐ Include at least 2 user roles: Manager and User.
+    ✔ Include at least 2 user roles: Manager and User. @done(22-05-09 14:57)
     ✔ Users must be able to create an account and log in. @done(22-05-09 01:14)
-    ☐ Each bike will have the following information in the profile: 
-      ☐ Model, 
-      ☐ Color, 
-      ☐ Location, 
-      ☐ Rating, 
-      ☐ and a checkbox indicating if the bike is available for rental or not.
+    ✔ Each bike will have the following information in the profile: @done(22-05-09 16:34)
+      ✔ Model, @done(22-05-09 16:34)
+      ✔ Color, @done(22-05-09 16:34)
+      ✔ Location, @done(22-05-09 16:34)
+      ✔ Rating, @done(22-05-09 16:34)
+      ✔ and a checkbox indicating if the bike is available for rental or not. @done(22-05-09 16:34)
   
   Managers can:
     Bikes:
@@ -17,15 +17,15 @@ The requirements for the test project are:
       ☐ Edit Bikes
       ☐ Delete Bikes
     Users:
-      ☐ Create Users
-      ☐ Read Users
-      ☐ Edit Users
-      ☐ Delete Users
+      ✔ Create Users @done(22-05-10 12:28)
+      ✔ Read Users @done(22-05-09 22:29)
+      ✔ Edit Users @done(22-05-10 12:28)
+      ✔ Delete Users @done(22-05-10 13:41)
     Managers:
-      ☐ Create Managers
-      ☐ Read Managers
-      ☐ Edit Managers
-      ☐ Delete Managers
+      ✔ Create Managers @done(22-05-10 13:54)
+      ✔ Read Managers @done(22-05-10 13:54)
+      ✔ Edit Managers @done(22-05-10 13:57)
+      ✔ Delete Managers @done(22-05-10 13:55)
     ☐ See all the users who reserved a bike, and the period of time they did it.
     ☐ See all the bikes reserved by a user and the period of time they did it.
   
