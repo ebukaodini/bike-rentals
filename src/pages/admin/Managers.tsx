@@ -62,24 +62,29 @@ export const Managers: React.FC<{}> = () => {
             </thead>
             <tbody>
               {
-                managers.map((user, index) => (
-                  <Row key={index}>
-                    <td>{index + 1}</td>
-                    <td>{user.firstname} {user.lastname}</td>
-                    <td>{user.email}</td>
-                    <td><span className="badge bg-dark">{user.role}</span></td>
-                    <td>
-                      <div className="d-flex align-items-center gap-3">
-                        <Action onClick={() => handleEditUser(user)} className="btn btn-sm">
-                          <Edit2 size={16} />
-                        </Action>
-                        <Action onClick={() => handleDeleteUser(user)} className="btn btn-sm text-danger">
-                          <Trash2 size={16} />
-                        </Action>
-                      </div>
-                    </td>
+                managers.length > 0 ?
+                  managers.map((user, index) => (
+                    <Row key={index}>
+                      <td>{index + 1}</td>
+                      <td>{user.firstname} {user.lastname}</td>
+                      <td>{user.email}</td>
+                      <td><span className="badge bg-dark">{user.role}</span></td>
+                      <td>
+                        <div className="d-flex align-items-center gap-3">
+                          <Action onClick={() => handleEditUser(user)} className="btn btn-sm">
+                            <Edit2 size={16} />
+                          </Action>
+                          <Action onClick={() => handleDeleteUser(user)} className="btn btn-sm text-danger">
+                            <Trash2 size={16} />
+                          </Action>
+                        </div>
+                      </td>
+                    </Row>
+                  ))
+                  :
+                  <Row>
+                    <td colSpan={5} className='text-center'>No Managers.</td>
                   </Row>
-                ))
               }
             </tbody>
           </table>
