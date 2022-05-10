@@ -1,6 +1,6 @@
 import create, { State } from "zustand";
 import { persist } from "zustand/middleware";
-import { ref, onValue, set as dbSet } from "firebase/database";
+import { ref, onValue, set as dbSet, update, remove } from "firebase/database";
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { database, auth } from './firebase'
 
@@ -11,7 +11,7 @@ import { database, auth } from './firebase'
 // }
 
 export type User = {
-  id: number
+  id: string
   firstname: string
   lastname: string
   email: string
@@ -26,38 +26,60 @@ export type RegisterCredentials = {
   role: string
 }
 
+export type UpdateCredentials = {
+  firstname: string
+  lastname: string
+}
+
 interface UserState extends State {
   users: User[]
+  managers: User[]
 }
 
 interface UserMethods extends State {
-  getUsers: () => Promise<any>
-  getUser: (
-    uid: string
-  ) => any
+  restoreDefault: () => void
+  getUsers: () => Promise<void>
+  // getUser: (
+  //   uid: string
+  // ) => any
   createUser: (
     user: RegisterCredentials
   ) => Promise<any>
+  updateUser: (
+    user: User
+  ) => Promise<any>
+  deleteUser: (
+    uid: string
+  ) => Promise<any>
 }
 
+const path = 'users/'
 export const useUserStore = create<UserState & UserMethods>(
   persist(
-    (get, set) => ({
+    (set, get) => ({
       users: [],
-      getUsers: async () => {
-        const usersRef = ref(database, 'users/')
-        onValue(usersRef, (snapshot) => {
-          const data = snapshot.val()
-          console.log(snapshot, data)
+      managers: [],
+      restoreDefault: () => {
+        set({
+          users: [],
         })
-        return []
       },
-      getUser: (uid) => {
-        const userRef = ref(database, 'users/' + uid)
-        onValue(userRef, (snapshot) => {
-          snapshot.val()
-        });
+      getUsers: async () => {
+        const usersRef = ref(database, path)
+        onValue(usersRef, (snapshot) => {
+          const data = Object.values(snapshot.val() as User[]) ?? []
+          set({
+            users: data.filter(u => u.role === 'user'),
+            managers: data.filter(u => u.role !== 'user')
+          })
+        })
       },
+      // getUser: (uid) => {
+      //   const userRef = ref(database, path + uid)
+      //   onValue(userRef, (snapshot) => {
+      //     snapshot.val()
+      //   });
+      // },
       createUser: async (user) => {
         return createUserWithEmailAndPassword(auth, user.email, user.password)
           .then(async (userCredential) => {
@@ -67,7 +89,7 @@ export const useUserStore = create<UserState & UserMethods>(
             // check if user is the first user
             const getNewUser =
               () => new Promise<RegisterCredentials>((res, rej) => {
-                const userRef = ref(database, 'users/')
+                const userRef = ref(database, path)
                 onValue(userRef, (snapshot) => {
                   const users = snapshot.val()
 
@@ -81,16 +103,21 @@ export const useUserStore = create<UserState & UserMethods>(
               })
 
             const { firstname, lastname, email, role } = await getNewUser()
-            
             const newUser = {
               id: uid,
               firstname, lastname, email, role
             }
 
-            dbSet(ref(database, 'users/' + uid), newUser)
+            dbSet(ref(database, path + uid), newUser)
             return newUser
           })
       },
+      updateUser: async (user) => {
+        return update(ref(database, path + user.id), user)
+      },
+      deleteUser: async (uid) => {
+        return remove(ref(database, path + uid))
+      }
     }), {
     name: 'user'
   })
