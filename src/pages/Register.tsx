@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { PageWrapper } from "../components"
 import Logo from '../assets/logo.svg'
 import { useState } from "react"
-import { useAuthStore, RegisterCredentials } from "../store"
+import { useAuthStore, RegisterCredentials, useModalStore } from "../store"
 import { Eye, EyeOff } from "react-feather"
 import isEmail from 'validator/lib/isEmail'
 import { Link, useHistory } from "react-router-dom"
@@ -32,6 +32,7 @@ export const Register: React.FC<{}> = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { push } = useHistory()
+  const { toast } = useModalStore()
 
   const toggleShowPassword = () => setShowPassword(!showPassword)
   const handleChange = (input: string, value: string) => {
@@ -42,10 +43,10 @@ export const Register: React.FC<{}> = () => {
 
     // validate inputs
     let errorLog = []
-    if (credentials.firstname.length === 0) errorLog.push('Please enter a firstname.')
-    if (credentials.lastname.length === 0) errorLog.push('Please enter a lastname.')
+    if (credentials.firstname.trim().length === 0) errorLog.push('Please enter a firstname.')
+    if (credentials.lastname.trim().length === 0) errorLog.push('Please enter a lastname.')
     if (!isEmail(credentials.email)) errorLog.push('Please enter a valid email.')
-    if (credentials.password.length < 6) errorLog.push('Password must be atleast 6 characters.')
+    if (credentials.password.trim().length < 6) errorLog.push('Password must be atleast 6 characters.')
 
     setErrors(errorLog)
     if (errorLog.length > 0) return
@@ -55,6 +56,7 @@ export const Register: React.FC<{}> = () => {
       .then(_ => {
         setIsSubmitting(false)
         const user = useAuthStore.getState().user!
+        toast('Account created successfully')
         if (user.role === 'user')
           push('/')
         else push('/dashboard')

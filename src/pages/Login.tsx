@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { PageWrapper } from "../components"
 import Logo from '../assets/logo.svg'
 import { useState } from "react"
-import { useAuthStore, LoginCredentials } from "../store"
+import { useAuthStore, LoginCredentials, useModalStore } from "../store"
 import { Eye, EyeOff } from "react-feather"
 import isEmail from 'validator/lib/isEmail'
 import { Link, useHistory } from "react-router-dom"
@@ -29,6 +29,7 @@ export const Login: React.FC<{}> = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { push } = useHistory()
+  const { toast } = useModalStore()
 
   const toggleShowPassword = () => setShowPassword(!showPassword)
   const handleChange = (input: string, value: string) => {
@@ -50,6 +51,7 @@ export const Login: React.FC<{}> = () => {
       .then(_ => {
         setIsSubmitting(false)
         const user = useAuthStore.getState().user!
+        toast('Login successful')
         if (user.role === 'user')
           push('/')
         else push('/dashboard')
