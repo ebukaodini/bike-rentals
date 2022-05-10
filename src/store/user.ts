@@ -113,10 +113,10 @@ export const useUserStore = create<UserState & UserMethods>(
           })
       },
       updateUser: async (user) => {
-        return update(ref(database, path + user.id), user)
+        return await update(ref(database, path + user.id), user)
       },
       deleteUser: async (uid) => {
-        return remove(ref(database, path + uid))
+        return await remove(ref(database, path + uid))
       }
     }), {
     name: 'user'
