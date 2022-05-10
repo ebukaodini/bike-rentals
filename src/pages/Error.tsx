@@ -24,7 +24,7 @@ export const Error: React.FC<{}> = () => {
             </LogoWrapper>
 
             <div className="mb-lg-4 text-center">
-              <h1 className="fw-bold">Unknown Page.</h1>
+              <h1 className="fw-bold">Unknown Page</h1>
               <p>You've reached an unknown page. Go back to reserve a bike.</p>
               <button className="btn btn-dark btn-sm" onClick={goBack}>Go back</button>
             </div>
