@@ -3,7 +3,7 @@ The requirements for the test project are:
     ✔ The application must be React-based. @done(22-05-06 16:33)
     ✔ Include at least 2 user roles: Manager and User. @done(22-05-09 14:57)
     ✔ Users must be able to create an account and log in. @done(22-05-09 01:14)
-    ✔ Each bike will have the following information in the profile: @done(22-05-09 16:34)
+    Each bike will have the following information in the profile:
       ✔ Model, @done(22-05-09 16:34)
       ✔ Color, @done(22-05-09 16:34)
       ✔ Location, @done(22-05-09 16:34)
@@ -12,10 +12,10 @@ The requirements for the test project are:
   
   Managers can:
     Bikes:
-      ☐ Create Bikes
-      ☐ Read Bikes
-      ☐ Edit Bikes
-      ☐ Delete Bikes
+      ✔ Create Bikes @done(22-05-10 15:56)
+      ✔ Read Bikes @done(22-05-10 15:56)
+      ✔ Edit Bikes @done(22-05-10 16:15)
+      ✔ Delete Bikes @done(22-05-10 15:56)
     Users:
       ✔ Create Users @done(22-05-10 12:28)
       ✔ Read Users @done(22-05-09 22:29)
@@ -30,15 +30,18 @@ The requirements for the test project are:
     ☐ See all the bikes reserved by a user and the period of time they did it.
   
   Users can:
-    ☐ See a list of all available bikes for some specific dates.
+    ✔ See a list of all available bikes for some specific dates. @done(22-05-11 21:07)
     Filter by:
-      ☐ model, 
-      ☐ color, 
-      ☐ location, or 
-      ☐ rate averages.
-    ☐ Reserve a bike for a specific period of time.
+      ✔ model, @done(22-05-12 09:16)
+      ✔ color, @done(22-05-12 09:16)
+      ✔ location, or @done(22-05-12 09:16)
+      ✔ rate averages. @done(22-05-12 09:16)
+    ✔ Reserve a bike for a specific period of time. @done(22-05-11 18:45)
     ☐ Rate the bikes with a score of 1 to 5.
     ☐ Cancel a reservation.
+  
+  Test:
+    ☐ Test Pages:
   
   Other notes:
     + You may use Firebase or similar services for the back-end.
