@@ -73,10 +73,10 @@ export const Managers: React.FC<{}> = () => {
                       <td><span className="badge bg-dark">{user.role}</span></td>
                       <td>
                         <div className="d-flex align-items-center gap-3">
-                          <Action onClick={() => handleEditUser(user)} className="btn btn-sm">
+                          <Action title='Edit manager' onClick={() => handleEditUser(user)} className="btn btn-sm">
                             <Edit2 size={16} />
                           </Action>
-                          <Action onClick={() => handleDeleteUser(user)} className="btn btn-sm text-danger">
+                          <Action title='Delete manager' onClick={() => handleDeleteUser(user)} className="btn btn-sm text-danger">
                             <Trash2 size={16} />
                           </Action>
                         </div>

@@ -1,4 +1,5 @@
-import { CheckCircle, Edit2, Star, Trash2 } from "react-feather"
+import { CheckCircle, Edit2, Pocket, Star, Trash2 } from "react-feather"
+import { useHistory } from "react-router-dom"
 import styled, { useTheme } from "styled-components"
 import { CreateBikeModal, DashboardWrapper } from "../../components"
 import { Bike, useBikeStore, useModalStore } from "../../store"
@@ -16,6 +17,7 @@ export const Bikes: React.FC<{}> = () => {
   const { confirm, modal, toast } = useModalStore()
   const { bikes, deleteBike } = useBikeStore()
   const { grey, primary } = useTheme()
+  const { push } = useHistory()
 
   const handleDeleteUser = (bike: Bike) => {
     confirm(`Delete Bike '${bike.model}' ?`, 'danger', async () => {
@@ -94,10 +96,13 @@ export const Bikes: React.FC<{}> = () => {
                         </td>
                         <td>
                           <div className="d-flex align-items-center gap-3">
-                            <Action onClick={() => handleEditBike(bike)} className="btn btn-sm">
+                            <Action title='See bike reservations' onClick={() => push(`/dashboard/bikes/${bike.id}/reservations`)} className="btn btn-sm">
+                              <Pocket size={16} />
+                            </Action>
+                            <Action title='Edit bike' onClick={() => handleEditBike(bike)} className="btn btn-sm">
                               <Edit2 size={16} />
                             </Action>
-                            <Action onClick={() => handleDeleteUser(bike)} className="btn btn-sm text-danger">
+                            <Action title='Delete bike' onClick={() => handleDeleteUser(bike)} className="btn btn-sm text-danger">
                               <Trash2 size={16} />
                             </Action>
                           </div>

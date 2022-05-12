@@ -28,7 +28,7 @@ const Row = styled.tr`
   cursor: pointer;
 `
 
-export const UserReservations: React.FC<{}> = () => {
+export const Reservations: React.FC<{}> = () => {
 
   const { bikes, updateBike } = useBikeStore()
   const { user } = useAuthStore()

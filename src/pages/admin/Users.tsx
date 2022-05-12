@@ -1,4 +1,5 @@
-import { Edit2, Trash2 } from "react-feather"
+import { Edit2, Pocket, Trash2 } from "react-feather"
+import { useHistory } from "react-router-dom"
 import styled from "styled-components"
 import { CreateUserModal, DashboardWrapper, EditUserModal } from "../../components"
 import { useModalStore, User, useUserStore } from "../../store"
@@ -15,6 +16,7 @@ export const Users: React.FC<{}> = () => {
 
   const { users, deleteUser } = useUserStore()
   const { confirm, modal, toast } = useModalStore()
+  const { push } = useHistory()
 
   const handleDeleteUser = (user: User) => {
     confirm(`Delete ${user.firstname} ${user.lastname}?`, 'danger', async () => {
@@ -69,10 +71,13 @@ export const Users: React.FC<{}> = () => {
                       <td>{user.email}</td>
                       <td>
                         <div className="d-flex align-items-center gap-3">
-                          <Action onClick={() => handleEditUser(user)} className="btn btn-sm">
+                          <Action title='See user reservations' onClick={() => push(`/dashboard/users/${user.id}/reservations`)} className="btn btn-sm">
+                            <Pocket size={16} />
+                          </Action>
+                          <Action title='Edit user' onClick={() => handleEditUser(user)} className="btn btn-sm">
                             <Edit2 size={16} />
                           </Action>
-                          <Action onClick={() => handleDeleteUser(user)} className="btn btn-sm text-danger">
+                          <Action title='Delete user' onClick={() => handleDeleteUser(user)} className="btn btn-sm text-danger">
                             <Trash2 size={16} />
                           </Action>
                         </div>

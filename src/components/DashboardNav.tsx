@@ -23,23 +23,28 @@ export const DashboardNav: React.FC<{}> = () => {
   const actions = [
     {
       title: 'Dashboard',
-      route: '/dashboard'
+      route: '/dashboard',
+      pages: ['/dashboard']
     },
     {
       title: 'Users',
-      route: '/dashboard/users'
+      route: '/dashboard/users',
+      pages: ['/dashboard/users']
     },
     {
       title: 'Managers',
-      route: '/dashboard/managers'
+      route: '/dashboard/managers',
+      pages: ['/dashboard/managers']
     },
     {
       title: 'Bikes',
-      route: '/dashboard/bikes'
+      route: '/dashboard/bikes',
+      pages: ['/dashboard/bikes']
     },
     {
       title: 'Reservations',
-      route: '/dashboard/reservations'
+      route: '/dashboard/reservations',
+      pages: ['/dashboard/reservations', '*/reservations']
     },
   ]
 
@@ -49,7 +54,9 @@ export const DashboardNav: React.FC<{}> = () => {
         {
           actions.map((action, index) => (
             <Link key={index} className="w-100 text-dark text-decoration-none" to={action.route}>
-              <Action className={`w-100 p-2 d-flex border border-light justify-content-between align-content-center ${pathname === action.route && 'active'}`}>
+              <Action
+                className={`w-100 p-2 d-flex border border-light justify-content-between 
+                align-content-center ${action.pages.includes(pathname) && 'active'}`}>
                 {action.title}
                 <ChevronRight className="pt-1" size={20} />
               </Action>
