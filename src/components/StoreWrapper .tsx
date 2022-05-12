@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { PageWrapper, Header } from "."
+import { PageWrapper, Header, Footer } from "."
 
 const Body = styled.div``
 
@@ -13,9 +13,10 @@ export const StoreWrapper: React.FC<props> = ({ children }) => {
     <PageWrapper>
       <>
         <Header />
-        <Body className="container-lg text-dark py-lg-3">
+        <Body className="container-lg text-dark py-lg-3 mb-5">
           {children}
         </Body>
+        <Footer />
       </>
     </PageWrapper>
   )
