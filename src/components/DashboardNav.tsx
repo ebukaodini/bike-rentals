@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom"
 import styled from "styled-components"
 
 const Wrapper = styled.div`
-  height: 500px;
+  min-height: 500px;
   width: 300px;
 `
 const Action = styled.div`

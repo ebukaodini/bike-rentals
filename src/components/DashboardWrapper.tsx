@@ -2,10 +2,12 @@ import { useEffect } from "react"
 import { useHistory } from "react-router-dom"
 import styled from "styled-components"
 import { useAuthStore, useModalStore } from "../store"
-import { PageWrapper, Header } from "./"
+import { PageWrapper, Header, Footer } from "./"
 import { DashboardNav } from "./DashboardNav"
 
-const Body = styled.div``
+const Body = styled.div`
+  height: 100%;
+`
 const Content = styled.div``
 
 type props = {
@@ -29,9 +31,9 @@ export const DashboardWrapper: React.FC<props> = ({ children }) => {
     <PageWrapper>
       <>
         <Header />
-        <div className="container-lg text-dark py-lg-3">
+        <div className="container-lg text-dark py-lg-3 mb-5">
 
-          <Body className="d-flex gap-lg-3">
+          <Body className="h-100 d-flex gap-lg-3">
             <DashboardNav />
 
             <Content className="p-lg-3 w-100">
@@ -41,6 +43,8 @@ export const DashboardWrapper: React.FC<props> = ({ children }) => {
           </Body>
 
         </div>
+
+        <Footer />
       </>
     </PageWrapper>
   )
