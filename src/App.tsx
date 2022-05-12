@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom'
 import { ConfirmModal, DynamicModal, LoadingModal, ToastWrapper } from './components';
-import { Bikes, Dashboard, Error, Login, Managers, Register, Reservations, Store, Users } from './pages'
+import { Bikes, Dashboard, Error, Login, Managers, Register, Reservations, Store, UserReservations, Users } from './pages'
 import { useBikeStore, useReservationStore } from './store';
 
 function App() {
@@ -25,6 +25,7 @@ function App() {
         <Route exact path='/register' component={Register} />
         <Route exact path='/login' component={Login} />
         <Route exact path='/dashboard' component={Dashboard} />
+        <Route exact path='/reservations' component={UserReservations} />
         <Route exact path='/dashboard/users' component={Users} />
         <Route exact path='/dashboard/managers' component={Managers} />
         <Route exact path='/dashboard/bikes' component={Bikes} />
