@@ -2,7 +2,7 @@ import { Layout, LogIn, LogOut, Pocket } from "react-feather"
 import { Link, useHistory } from "react-router-dom"
 import styled from "styled-components"
 import Logo from '../assets/logo.svg'
-import { useAuthStore } from "../store"
+import { useAuthStore, useModalStore } from "../store"
 
 const Wrapper = styled.div`
   height: 90px;
@@ -40,9 +40,12 @@ export const Header: React.FC<{}> = () => {
 
   const { authenticated, user, logout } = useAuthStore()
   const { push } = useHistory()
+  const { confirm } = useModalStore()
   const handleLogout = () => {
-    logout()
-    push('/login')
+    confirm('Confirm Logout?', 'danger', async () => {
+      logout()
+      push('/login')
+    })
   }
 
   return (
