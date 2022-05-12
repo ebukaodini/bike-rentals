@@ -35,10 +35,9 @@ export const DashboardWrapper: React.FC<props> = ({ children }) => {
         <Header />
         <div className="container text-dark py-3 mb-5">
 
-          <Body className="h-100 d-flex gap-md-3">
-            <div className="">
+          <Body className="h-100 d-flex gap-3 w-100 overflow-hidden">
+            <div className={`${showMenu === true ? 'd-block' : 'd-none'} d-md-block`}>
               {
-                // showMenu &&
                 <DashboardNav />
               }
             </div>
