@@ -25,6 +25,9 @@ export const Managers: React.FC<{}> = () => {
           .then(_ => {
             toast('Account deleted successfully.')
           })
+          .catch(error => {
+            toast(error.message, 'danger')
+          })
       }
     }, undefined, 'Delete')
   }
