@@ -52,9 +52,10 @@ export const Bikes: React.FC<{}> = () => {
               <tr>
                 <th>#</th>
                 <th>Bike</th>
-                <th>Rating</th>
+                <th>Model</th>
                 <th>Color</th>
                 <th>Location</th>
+                <th>Rating</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -66,16 +67,17 @@ export const Bikes: React.FC<{}> = () => {
                       <td>{index + 1}</td>
                       <td>
                         <div className="d-flex align-items-center gap-1">
-                          {bike.model}
+                          {bike.description}
                           {
                             bike.isAvailable &&
                             <CheckCircle className="text-primary" size={12} />
                           }
                         </div>
                       </td>
-                      <td>{Math.round(bike.rating / bike.ratingCount)}</td>
+                      <td>{bike.model}</td>
                       <td>{bike.color}</td>
                       <td>{bike.location}</td>
+                      <td>{bike.ratingCount > 0 ? Math.round(bike.rating / bike.ratingCount) : 0}</td>
                       <td>
                         <div className="d-flex align-items-center gap-3">
                           <Action onClick={() => handleEditBike(bike)} className="btn btn-sm">
@@ -90,7 +92,7 @@ export const Bikes: React.FC<{}> = () => {
                   ))
                   :
                   <Row>
-                    <td colSpan={6} className='text-center'>No Bikes.</td>
+                    <td colSpan={7} className='text-center'>No Bikes.</td>
                   </Row>
               }
             </tbody>
