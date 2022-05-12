@@ -48,6 +48,8 @@ export const Bike: React.FC<{ bike: TBike, currentBike: number, setCurrentBike: 
       reservedFrom: dateFrom,
       reservedTo: dateTo,
       timestamp: Date.now(),
+      rating: 0,
+      isRated: false,
       isActive: true
     }
 
@@ -98,11 +100,13 @@ export const Bike: React.FC<{ bike: TBike, currentBike: number, setCurrentBike: 
               <div className="">{bike.model}</div>
               <div className="d-flex gap-2 align-items-center">
                 <span className="d-flex gap-1 align-items-center">
-                  <Star size={16} fill={rating > 0 ? primary : grey} color={rating > 0 ? primary : grey} />
-                  <Star size={16} fill={rating > 1 ? primary : grey} color={rating > 1 ? primary : grey} />
-                  <Star size={16} fill={rating > 2 ? primary : grey} color={rating > 2 ? primary : grey} />
-                  <Star size={16} fill={rating > 3 ? primary : grey} color={rating > 3 ? primary : grey} />
-                  <Star size={16} fill={rating > 4 ? primary : grey} color={rating > 4 ? primary : grey} />
+                  {
+                    [0, 1, 2, 3, 4].map((rate, index) => (
+                      <Star size={16} className='mb-1'
+                        fill={rating > rate ? primary : grey}
+                        color={rating > rate ? primary : grey} />
+                    ))
+                  }
                 </span>
                 <span>{bike.ratingCount} {bike.ratingCount > 1 ? 'reviews' : 'review'}</span>
               </div>

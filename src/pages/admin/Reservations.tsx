@@ -54,7 +54,7 @@ export const Reservations: React.FC<{}> = () => {
                         </td>
                         <td>
                           <div className="d-flex align-items-center gap-2">
-                            {bike.model}
+                            {bike.description}
                             <Action className="btn"><Link size={14} className='text-primary mb-1' /></Action>
                           </div>
                         </td>
