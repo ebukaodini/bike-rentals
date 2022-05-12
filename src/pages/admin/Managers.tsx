@@ -13,7 +13,7 @@ const Action = styled.button`
 
 export const Managers: React.FC<{}> = () => {
 
-  const { managers, deleteUser, getUsers } = useUserStore()
+  const { managers, deleteUser } = useUserStore()
   const { confirm, modal, toast } = useModalStore()
 
   const handleDeleteUser = (user: User) => {
@@ -22,8 +22,7 @@ export const Managers: React.FC<{}> = () => {
         toast('Super Admin cannot deleted.', 'danger')
       else {
         deleteUser(user.id)
-          .then(async _ => {
-            await getUsers()
+          .then(_ => {
             toast('Account deleted successfully.')
           })
       }

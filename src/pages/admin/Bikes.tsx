@@ -14,13 +14,12 @@ const Action = styled.button`
 export const Bikes: React.FC<{}> = () => {
 
   const { confirm, modal, toast } = useModalStore()
-  const { bikes, deleteBike, getBikes } = useBikeStore()
+  const { bikes, deleteBike } = useBikeStore()
 
   const handleDeleteUser = (bike: Bike) => {
     confirm(`Delete Bike '${bike.model}' ?`, 'danger', async () => {
       deleteBike(bike)
-        .then(async _ => {
-          await getBikes()
+        .then(_ => {
           toast('Bike deleted successfully.')
         })
 

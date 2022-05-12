@@ -13,15 +13,14 @@ const Action = styled.button`
 
 export const Users: React.FC<{}> = () => {
 
-  const { users, deleteUser, getUsers } = useUserStore()
+  const { users, deleteUser } = useUserStore()
   const { confirm, modal, toast } = useModalStore()
 
   const handleDeleteUser = (user: User) => {
     confirm(`Delete ${user.firstname} ${user.lastname}?`, 'danger', async () => {
       if (user.role === 'user') {
         deleteUser(user.id)
-          .then(async _ => {
-            await getUsers()
+          .then(_ => {
             toast('Account deleted successfully.')
           })
       }

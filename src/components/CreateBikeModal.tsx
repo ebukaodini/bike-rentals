@@ -14,7 +14,7 @@ export const CreateBikeModal: React.FC<{ isEditing?: boolean, bike?: Bike }> = (
     isAvailable: true
   }
 
-  const { createBike, updateBike, getBikes } = useBikeStore()
+  const { createBike, updateBike } = useBikeStore()
   const [credentials, setCredentials] = useState<Bike>(bikeDefault)
   const [errors, setErrors] = useState<string[]>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -38,9 +38,8 @@ export const CreateBikeModal: React.FC<{ isEditing?: boolean, bike?: Bike }> = (
     setIsSubmitting(true)
     if (isEditing) {
       updateBike(credentials)
-        .then(async _ => {
+        .then(_ => {
           setIsSubmitting(false)
-          await getBikes()
           toast('Bike updated successfully.')
           setCredentials(bikeDefault)
           closeModal()
@@ -51,9 +50,8 @@ export const CreateBikeModal: React.FC<{ isEditing?: boolean, bike?: Bike }> = (
         })
     } else {
       createBike(credentials)
-        .then(async _ => {
+        .then(_ => {
           setIsSubmitting(false)
-          await getBikes()
           toast('Bike created successfully.')
           setCredentials(bikeDefault)
           closeModal()

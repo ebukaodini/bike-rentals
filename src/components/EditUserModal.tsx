@@ -3,7 +3,7 @@ import { UpdateCredentials, useModalStore, User, useUserStore } from "../store"
 
 export const EditUserModal: React.FC<{ user: User, role: string }> = ({ user, role }) => {
 
-  const { updateUser, getUsers } = useUserStore()
+  const { updateUser } = useUserStore()
   const [credentials, setCredentials] = useState<UpdateCredentials>({
     firstname: '',
     lastname: ''
@@ -31,9 +31,8 @@ export const EditUserModal: React.FC<{ user: User, role: string }> = ({ user, ro
       ...user,
       ...credentials
     })
-      .then(async _ => {
+      .then(_ => {
         setIsSubmitting(false)
-        await getUsers()
         toast('Account updated successfully.')
         closeModal()
       })

@@ -39,9 +39,6 @@ interface UserState extends State {
 interface UserMethods extends State {
   restoreDefault: () => void
   getUsers: () => Promise<void>
-  // getUser: (
-  //   uid: string
-  // ) => any
   createUser: (
     user: RegisterCredentials
   ) => Promise<any>
@@ -74,12 +71,6 @@ export const useUserStore = create<UserState & UserMethods>(
           })
         })
       },
-      // getUser: (uid) => {
-      //   const userRef = ref(database, path + uid)
-      //   onValue(userRef, (snapshot) => {
-      //     snapshot.val()
-      //   });
-      // },
       createUser: async (user) => {
         return createUserWithEmailAndPassword(auth, user.email, user.password)
           .then(async (userCredential) => {
@@ -114,9 +105,15 @@ export const useUserStore = create<UserState & UserMethods>(
       },
       updateUser: async (user) => {
         return await update(ref(database, path + user.id), user)
+          .then(async _ => {
+            return await get().getUsers()
+          })
       },
       deleteUser: async (uid) => {
         return await remove(ref(database, path + uid))
+          .then(async _ => {
+            return await get().getUsers()
+          })
       }
     }), {
     name: 'user'

@@ -6,7 +6,7 @@ import { database } from "./firebase"
 // These could be stored in a server and updated by the managers
 // but for the sakeof this project, they'd be made constants
 export const bikeModels = [
-  'Kids Bikes', 'Urban/Trekking Bikes', 'Cross & Gravel Bikes', 
+  'Kids Bikes', 'Urban/Trekking Bikes', 'Cross & Gravel Bikes',
   'Road Bikes', 'Mountain Bikes', 'E-Bikes'
 ]
 
@@ -75,12 +75,21 @@ export const useBikeStore = create<BikeState & BikeMethods>(
     },
     createBike: async (bike) => {
       return await dbSet(ref(database, path + bike.id), bike)
+        .then(async _ => {
+          return await get().getBikes()
+        })
     },
     updateBike: async (bike) => {
       return await update(ref(database, path + bike.id), bike)
+        .then(async _ => {
+          return await get().getBikes()
+        })
     },
     deleteBike: async (bike) => {
       return await remove(ref(database, path + bike.id))
+        .then(async _ => {
+          return await get().getBikes()
+        })
     }
   }), {
     name: 'bike'
