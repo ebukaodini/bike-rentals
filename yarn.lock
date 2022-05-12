@@ -2442,11 +2442,6 @@
   resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.9.7.tgz#63bb7d067db107cc1e457c303bc25d511febf6cb"
   integrity sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==
 
-"@types/random-string-gen@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@types/random-string-gen/-/random-string-gen-1.1.0.tgz#8e70b049390d39dcde21af750c6ff0461d7d9758"
-  integrity sha512-xMVgRnQbhLnXtZXXrRXgQB1qGLPUnsSCaXzRsj9rXyM4KZo1kmhO8CP1ALFel2CfR3M6dDPF7LS7uDpBl8ZijA==
-
 "@types/range-parser@*":
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.4.tgz#cd667bcfdd025213aafb7ca5915a932590acdcdc"
@@ -8451,13 +8446,6 @@ raf@^3.4.1:
   dependencies:
     performance-now "^2.1.0"
 
-random-string-gen@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/random-string-gen/-/random-string-gen-1.1.4.tgz#71f877fca4d5a7216a058a6fc80a965aaf10f8a9"
-  integrity sha512-LAVE9qj0WZ8s1iboD4YJ8HpEGoSTv6Q5s3IzZEBWz31cbwXRorKyZjFjffukneRsjtrynUCS3ndRld9eoQDCuw==
-  dependencies:
-    yargs "^17.3.1"
-
 randombytes@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/randombytes/-/randombytes-2.1.0.tgz#df6f84372f0270dc65cdf6291349ab7a473d4f2a"
@@ -10671,7 +10659,7 @@ yargs@^16.2.0:
     y18n "^5.0.5"
     yargs-parser "^20.2.2"
 
-yargs@^17.2.1, yargs@^17.3.1:
+yargs@^17.2.1:
   version "17.4.1"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-17.4.1.tgz#ebe23284207bb75cee7c408c33e722bfb27b5284"
   integrity sha512-WSZD9jgobAg3ZKuCQZSa3g9QOJeCCqLoLAykiWgmXnDo9EPnn4RPf5qVTtzgOx66o6/oqhcA5tHtJXpG8pMt3g==

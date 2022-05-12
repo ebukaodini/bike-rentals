@@ -1,6 +1,21 @@
-# Getting Started with Create React App
+# Bike Rentals
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An application to manage bike rentals.
+
+## Requirement
+
+Create a firebase project and add the following firebase variables to the .env file
+
+```bash
+REACT_APP_FIREBASE_APIKEY = <your-value>
+REACT_APP_FIREBASE_AUTHDOMAIN = <your-value>
+REACT_APP_FIREBASE_DATABASEURL = <your-value>
+REACT_APP_FIREBASE_PROJECTID = <your-value>
+REACT_APP_FIREBASE_STORAGEBUCKET = <your-value>
+REACT_APP_FIREBASE_MESSAGINGSENDERID = <your-value>
+REACT_APP_FIREBASE_APPID = <your-value>
+REACT_APP_FIREBASE_MEASUREMENTID = <your-value>
+```
 
 ## Available Scripts
 
