@@ -1,19 +1,21 @@
-import randomString from "random-string-gen";
 import { useEffect, useState } from "react"
-import { Bike, useBikeStore, useModalStore } from "../store"
+import { availableLocations, Bike, bikeColors, bikeModels, useBikeStore, useModalStore } from "../store"
 
 export const CreateBikeModal: React.FC<{ isEditing?: boolean, bike?: Bike }> = ({ isEditing, bike }) => {
 
-  const { createBike, updateBike, getBikes } = useBikeStore()
-  const [credentials, setCredentials] = useState<Bike>({
-    id: randomString(7),
-    model: '',
-    color: '',
-    location: '',
-    rating: 1,
-    ratingCount: 1,
+  const bikeDefault: Bike = {
+    id: Date.now(),
+    description: '',
+    model: bikeModels[0],
+    color: bikeColors[0],
+    location: availableLocations[0],
+    rating: 0,
+    ratingCount: 0,
     isAvailable: true
-  })
+  }
+
+  const { createBike, updateBike, getBikes } = useBikeStore()
+  const [credentials, setCredentials] = useState<Bike>(bikeDefault)
   const [errors, setErrors] = useState<string[]>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { closeModal, toast } = useModalStore()
@@ -40,6 +42,7 @@ export const CreateBikeModal: React.FC<{ isEditing?: boolean, bike?: Bike }> = (
           setIsSubmitting(false)
           await getBikes()
           toast('Bike updated successfully.')
+          setCredentials(bikeDefault)
           closeModal()
         })
         .catch(error => {
@@ -52,6 +55,7 @@ export const CreateBikeModal: React.FC<{ isEditing?: boolean, bike?: Bike }> = (
           setIsSubmitting(false)
           await getBikes()
           toast('Bike created successfully.')
+          setCredentials(bikeDefault)
           closeModal()
         })
         .catch(error => {
@@ -62,15 +66,7 @@ export const CreateBikeModal: React.FC<{ isEditing?: boolean, bike?: Bike }> = (
   }
   const handleCancel = () => {
     setErrors([])
-    setCredentials({
-      id: randomString(7),
-      model: '',
-      color: '',
-      location: '',
-      rating: 1,
-      ratingCount: 1,
-      isAvailable: true
-    })
+    setCredentials(bikeDefault)
   }
 
   useEffect(() => {
@@ -108,18 +104,41 @@ export const CreateBikeModal: React.FC<{ isEditing?: boolean, bike?: Bike }> = (
 
       <div className="bg-white shadow-sm p-3">
         <div className="mb-3">
+          <label className="mb-1" htmlFor="description">Description</label>
+          <input type="text" defaultValue={credentials.description} disabled={isSubmitting} required onChange={(e) => handleChange('description', e.target.value)} id="description" className="form-control py-2 px-3 text-dark" aria-label="Description" placeholder="Hammer-E LT1" />
+        </div>
+
+        <div className="mb-3">
           <label className="mb-1" htmlFor="model">Model</label>
-          <input value={credentials.model} disabled={isSubmitting} required onChange={(e) => handleChange('model', e.target.value)} type="text" className="form-control py-2 px-3 text-dark" id="model" placeholder="Hammer-E LT1" />
+          <select value={credentials.model} disabled={isSubmitting} required onChange={(e) => handleChange('model', e.target.value)} id="model" className="form-select py-2 px-3 text-dark" aria-label="Model">
+            {
+              bikeModels.map((model, index) => (
+                <option key={index} value={model}>{model}</option>
+              ))
+            }
+          </select>
         </div>
 
         <div className="mb-3">
           <label className="mb-1" htmlFor="color">Color</label>
-          <input value={credentials.color} disabled={isSubmitting} required onChange={(e) => handleChange('color', e.target.value)} type="text" className="form-control py-2 px-3 text-dark" id="color" placeholder="Black" />
+          <select value={credentials.color} disabled={isSubmitting} required onChange={(e) => handleChange('color', e.target.value)} id="color" className="form-select py-2 px-3 text-dark" aria-label="Color">
+            {
+              bikeColors.map((color, index) => (
+                <option key={index} value={color}>{color}</option>
+              ))
+            }
+          </select>
         </div>
 
         <div className="mb-3">
           <label className="mb-1" htmlFor="location">Location (City)</label>
-          <input value={credentials.location} disabled={isSubmitting} required onChange={(e) => handleChange('location', e.target.value)} type="text" className="form-control py-2 px-3 text-dark" id="location" placeholder="Ikeja, Lagos" />
+          <select value={credentials.location} disabled={isSubmitting} required onChange={(e) => handleChange('location', e.target.value)} id="location" className="form-select py-2 px-3 text-dark" aria-label="Location">
+            {
+              availableLocations.map((location, index) => (
+                <option key={index} value={location}>{location}</option>
+              ))
+            }
+          </select>
         </div>
 
         <div className="mb-4 form-check">
