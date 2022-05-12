@@ -1,4 +1,4 @@
-export { useBikeStore } from './bike'
+export { useBikeStore, availableLocations, bikeModels, bikeColors } from './bike'
 export { useUserStore } from './user'
 export { useReservationStore } from './reservation'
 export { useAuthStore } from './auth'
