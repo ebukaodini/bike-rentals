@@ -4,7 +4,7 @@ import { ConfirmModal, DynamicModal, LoadingModal, ToastWrapper } from './compon
 import { AdminBikeReservations, AdminReservations, AdminUserReservations, Bikes, Dashboard, Error, Login, Managers, Register, Reservations, Store, Users } from './pages'
 import { useBikeStore, useReservationStore } from './store';
 
-function App() {
+export function App() {
 
   const { getBikes } = useBikeStore()
   const { getReservations } = useReservationStore()
