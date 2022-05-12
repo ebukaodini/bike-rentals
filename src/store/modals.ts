@@ -44,7 +44,7 @@ interface LoadingModalMethods extends State {
 // ---------------
 
 type ConfirmProps = {
-  message: string
+  message: string | JSX.Element
   context: 'alt-light' | 'danger' | 'success'
   onConfirm?: () => Promise<any>
   onCancel?: () => Promise<any>
