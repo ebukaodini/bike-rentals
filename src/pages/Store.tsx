@@ -121,34 +121,18 @@ export const Store: React.FC<{}> = () => {
         }
       })
 
+      console.log(filter)
+
       setFilteredBikes(
-        (filter.color.length === 0 &&
+        (
+          filter.color.length === 0 &&
           filter.model.length === 0 &&
-          filter.location.length === 0) ? availableBikes : filtered
+          filter.location.length === 0 &&
+          filter.rating === 0
+        ) ? availableBikes : filtered
       )
-
-      // let filtered = availableBikes
-      // // filter models
-      // filtered = filter.model.length > 0
-      //   ? filtered.filter(b => filter.model.includes(b.model))
-      //   : filtered
-      // // filter colors
-      // filtered = filter.color.length > 0
-      //   ? filtered.filter(b => filter.color.includes(b.color))
-      //   : filtered
-      // // filter location
-      // filtered = filter.location.length > 0
-      //   ? filtered.filter(b => filter.location.includes(b.location))
-      //   : filtered
-      // // filter ratings
-      // filtered = filter.rating > 0
-      //   ? filtered.filter(b => Math.round(b.rating / b.ratingCount) >= filter.rating)
-      //   : filtered
-
-      // setFilteredBikes(filtered)
-
     }
-  }, [availableBikes, filter.color, filter.location, filter.model, filter.rating, filterIsCleared])
+  }, [availableBikes, filter, filterIsCleared])
 
   const clearFilter = () => {
     setFilter({
