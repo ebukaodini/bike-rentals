@@ -64,14 +64,12 @@ export const useAuthStore = create<AuthState & AuthMethods>(
                       user: user
                     })
 
+                    await useBikeStore.getState().getBikes()
+                    await useReservationStore.getState().getReservations()
+
                     // get dashboard data
-                    if (user.role! !== 'user') {
-                      await Promise.all([
-                        useUserStore.getState().getUsers(),
-                        useBikeStore.getState().getBikes(),
-                        useReservationStore.getState().getReservations()
-                      ])
-                    }
+                    if (user.role! !== 'user')
+                      await useUserStore.getState().getUsers()
 
                     res(user)
                   } else {
