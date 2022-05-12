@@ -31,7 +31,7 @@ export const DashboardWrapper: React.FC<props> = ({ children }) => {
     <PageWrapper>
       <>
         <Header />
-        <div className="container-lg text-dark py-lg-3 mb-5">
+        <div className="container text-dark py-3 mb-5">
 
           <Body className="h-100 d-flex gap-lg-3">
             <DashboardNav />

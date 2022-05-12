@@ -41,7 +41,37 @@ The requirements for the test project are:
     ✔ Cancel a reservation. @done(22-05-12 11:52)
   
   Test:
-    ☐ Write test for pages:
+    Write test for page routing:
+      ☐ Store
+      ☐ Login
+      ☐ Register
+      ☐ Reservations
+      ☐ Error
+      Admin:
+        ☐ Dashboard
+        ☐ Bikes
+        ☐ Users
+        ☐ Managers
+        ☐ Reservations
+        ☐ User Reservations
+        ☐ Bike Reservations
+
+  Optimisation: 
+    Screen Compatibility:
+      ✔ Store @done(22-05-12 18:55)
+      ✔ Login @done(22-05-12 18:59)
+      ✔ Register @done(22-05-12 18:59)
+      ☐ Reservations
+      ✔ Error @done(22-05-12 18:56)
+      Admin:
+        ☐ Dashboard
+        ☐ Bikes
+        ☐ Users
+        ☐ Managers
+        ☐ Reservations
+        ☐ User Reservations
+        ☐ Bike Reservations
+
   
   Other notes:
     + You may use Firebase or similar services for the back-end.

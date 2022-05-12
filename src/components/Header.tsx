@@ -5,12 +5,21 @@ import Logo from '../assets/logo.svg'
 import { useAuthStore, useModalStore } from "../store"
 
 const Wrapper = styled.div`
-  height: 90px;
+  height: 80px;
   width: 100%;
+
+  @media (min-width: 768px) {
+    height: 90px;
+  }
 `
 const LogoWrapper = styled.div`
-  height: 60px;
+
+  height: 40px;
   width: fit-content;
+
+  @media (min-width: 768px) {
+    height: 60px;
+  }
 
   img {
     height: 100%;
@@ -50,7 +59,7 @@ export const Header: React.FC<{}> = () => {
 
   return (
     <Wrapper className='bg-white shadow-sm sticky-top'>
-      <div className="container-lg h-100">
+      <div className="container h-100">
         <div className="h-100 d-flex justify-content-between align-items-center">
 
           <div className="d-flex gap-2 align-items-center">
@@ -59,10 +68,10 @@ export const Header: React.FC<{}> = () => {
                 <img src={Logo} alt="Bike Rentals" title="Bike Rentals" className="w-100 h-100" />
               </Link>
             </LogoWrapper>
-            <div className="text-alt h2 m-0 p-0 fw-bold">Bike Rentals</div>
+            <div className="text-alt h2 m-0 p-0 fw-bold d-none d-md-block">Bike Rentals</div>
           </div>
 
-          <ActionWrapper className="h-100 d-flex align-items-center justify-content-between gap-lg-1">
+          <ActionWrapper className="h-100 d-flex align-items-center justify-content-between gap-1">
 
             {
               authenticated &&

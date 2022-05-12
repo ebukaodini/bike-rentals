@@ -70,17 +70,17 @@ export const Register: React.FC<{}> = () => {
 
   return (
     <div>
-      <PageWrapper className="container-lg text-dark vh-100">
+      <PageWrapper className="container text-dark vh-100">
 
         <FormWrapper className="h-100 d-flex align-items-center justify-content-center">
 
-          <Form onSubmit={handleSubmit} className="w-100 bg-white shadow-sm px-lg-4 pt-lg-4 pb-lg-5">
+          <Form onSubmit={handleSubmit} className="w-100 bg-white shadow-sm px-4 pt-4 pb-5">
 
-            <LogoWrapper className="w-100 d-flex justify-content-center mb-lg-3">
+            <LogoWrapper className="w-100 d-flex justify-content-center mb-3">
               <img src={Logo} alt="Bike Rentals" title="Bike Rentals" className="mb-5 w-100 h-100 text-primary" />
             </LogoWrapper>
 
-            <div className="mb-lg-4 text-center">
+            <div className="mb-4 text-center">
               <h1 className="fw-bold">Create Account</h1>
               <p>Create an account to reserve a bike.</p>
             </div>

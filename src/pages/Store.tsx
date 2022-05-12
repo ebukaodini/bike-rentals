@@ -1,13 +1,17 @@
 import styled, { useTheme } from "styled-components"
 import { Bike, StoreWrapper, } from "../components"
 import BikeHero from '../assets/bike-hero.svg'
-import { useEffect, useState } from "react"
-import { availableLocations, Bike as TBike, bikeColors, bikeModels, useAuthStore, useBikeStore, useReservationStore } from "../store"
-import { Star } from "react-feather"
+import { useCallback, useEffect, useState } from "react"
+import { availableLocations, Bike as TBike, bikeColors, bikeModels, useAuthStore, useBikeStore, useModalStore, useReservationStore } from "../store"
+import { Filter, Star } from "react-feather"
 
 const HeroWrapper = styled.div`
-  height: 500px;
+  height: 400px;
   width: 100%;
+  
+  @media (min-width: 768px) {
+    height: 500px;
+  }
 
   img {
     height: 100%;
@@ -16,12 +20,16 @@ const HeroWrapper = styled.div`
   }
 
   div {
-    width: 30%;
+    width: auto;
     position: absolute;
     top: 0%;
     left: 0%;
     background-color: #0000005d;
     font-size: 24px;
+
+    @media (min-width: 768px) {
+      width: 30%;
+    }
   }
 `
 const Title = styled.div`
@@ -38,9 +46,9 @@ const FilterList = styled.div`
   overflow-y: auto;
 `
 const BikeList = styled.div`
-  transition: all 8s ease-in-out;
-  /* cubic-bezier(0.18, 0.89, 0.32, 1.28); */
+  transition: cubic-bezier(0.18, 0.89, 0.32, 1.28);
 `
+const FilterBoxWrapper = styled.div``
 
 type filterType = {
   model: string[],
@@ -67,6 +75,8 @@ export const Store: React.FC<{}> = () => {
     rating: 0
   })
   const [filterIsCleared, setFilterIsCleared] = useState<boolean>(true)
+  const [showFilter, setShowFilter] = useState(false)
+  const { modal } = useModalStore()
 
   useEffect(() => {
     const d = new Date()
@@ -143,7 +153,7 @@ export const Store: React.FC<{}> = () => {
     })
     setFilterIsCleared(true)
   }
-  const handleFilter = (key: string, value: string | number, state?: boolean) => {
+  const handleFilter = useCallback((key: string, value: string | number, state?: boolean) => {
     let filters: string[] = []
     setFilterIsCleared(false)
 
@@ -179,135 +189,169 @@ export const Store: React.FC<{}> = () => {
         [key]: filters
       })
     }
-  }
+  }, [filter])
+
+  const FilterBox = useCallback(() => {
+
+    return (
+      <FilterBoxWrapper>
+
+        {
+          showFilter === true &&
+          <div className="d-flex mb-1 justify-content-end">
+            <button type="button"
+              className="btn-close d-block d-md-none"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              onClick={() => setShowFilter(false)}
+            />
+          </div>
+        }
+
+        <Title className="d-flex align-items-center justify-content-between mb-2">
+          <h5 className="text-dark m-0">Filter</h5>
+          <button onClick={clearFilter} className="btn m-0 badge bg-primary text-light fw-normal" title="Clear filter">
+            Clear
+          </button>
+        </Title>
+
+        <div className="bg-white shadow-sm rounded p-3">
+
+          <FilterWrapper className="mb-3">
+            <h6>Model</h6>
+            <FilterList className="list-group">
+              {
+                bikeModels.map((model, index) => (
+                  <li key={index} className="list-group-item">
+                    <label htmlFor={'model_' + model} className='w-100' style={{ cursor: 'pointer' }}>
+                      <input
+                        onChange={(e) => handleFilter('model', model, e.target.checked)}
+                        type="checkbox" checked={filter.model.includes(model)}
+                        className="form-check-input me-2" id={'model_' + model}
+                      />
+                      <small>{model.toUpperCase()}</small>
+                    </label>
+                  </li>
+                ))
+              }
+            </FilterList>
+          </FilterWrapper>
+
+          <hr />
+
+          <FilterWrapper className="mb-3">
+            <h6>Color</h6>
+            <FilterList className="list-group">
+              {
+                bikeColors.map((color, index) => (
+                  <li key={index} className="list-group-item">
+                    <label htmlFor={'color_' + color} className='w-100' style={{ cursor: 'pointer' }}>
+                      <input
+                        onChange={(e) => handleFilter('color', color, e.target.checked)}
+                        type="checkbox" checked={filter.color.includes(color)}
+                        className="form-check-input me-2" id={'color_' + color}
+                      />
+                      <small>{color.toUpperCase()}</small>
+                    </label>
+                  </li>
+                ))
+              }
+            </FilterList>
+          </FilterWrapper>
+
+          <hr />
+
+          <FilterWrapper className="mb-3">
+            <h6>Location</h6>
+            <FilterList className="list-group">
+              {
+                availableLocations.map((location, index) => (
+                  <li key={index} className="list-group-item">
+                    <label htmlFor={'location_' + location} className='w-100' style={{ cursor: 'pointer' }}>
+                      <input
+                        onChange={(e) => handleFilter('location', location, e.target.checked)}
+                        type="checkbox" checked={filter.location.includes(location)}
+                        className="form-check-input me-2" id={'location_' + location}
+                      />
+                      <small>{location.toUpperCase()}</small>
+                    </label>
+                  </li>
+                ))
+              }
+            </FilterList>
+          </FilterWrapper>
+
+          <hr />
+
+          <FilterWrapper className="mb-3">
+            <h6>Avg. Ratings</h6>
+            <FilterList className="list-group">
+              {
+                [4, 3, 2, 1].map((rate, index) => (
+                  <button
+                    onClick={() => handleFilter('rating', rate)}
+                    key={index} type="button" className={`list-group-item list-group-item-action ${filter.rating === rate && 'bg-light'}`}>
+                    <div className="d-flex gap-2">
+                      <span className="d-flex gap-1 align-items-center">
+                        <Star size={16} fill={rate > 0 ? primary : grey} color={rate > 0 ? primary : grey} />
+                        <Star size={16} fill={rate > 1 ? primary : grey} color={rate > 1 ? primary : grey} />
+                        <Star size={16} fill={rate > 2 ? primary : grey} color={rate > 2 ? primary : grey} />
+                        <Star size={16} fill={rate > 3 ? primary : grey} color={rate > 3 ? primary : grey} />
+                        <Star size={16} fill={rate > 4 ? primary : grey} color={rate > 4 ? primary : grey} />
+                      </span>
+                      <span>{'&'}&nbsp;above</span>
+                    </div>
+                  </button>
+                ))
+              }
+            </FilterList>
+          </FilterWrapper>
+
+        </div>
+
+      </FilterBoxWrapper>
+    )
+  }, [filter.color, filter.location, filter.model, filter.rating, grey, handleFilter, primary, showFilter])
+
+  useEffect(() => {
+    if (showFilter) {
+      modal(<FilterBox />, 'lg', true)
+    }
+  }, [FilterBox, modal, showFilter])
+
 
   return (
     <div>
       <StoreWrapper>
         <>
-          <HeroWrapper className="shadow-sm position-relative mb-lg-3">
+          <HeroWrapper className="shadow-sm position-relative mb-3 rounded">
             <img src={BikeHero} alt="Hero" className="shadow-sm rounded" />
             <div className="p-3 m-4 text-alt-light fw-bolder rounded">
               Reserve a Bike for any type of Journey.
             </div>
           </HeroWrapper>
 
-          <div className="d-flex gap-lg-2 justify-con tent-start">
+          <div className="d-flex gap-0 gap-md-2">
 
-            <div className="col-lg-3">
-
-              <Title className="d-flex align-items-center justify-content-between mb-2">
-                <h5 className="text-dark m-0">Filter</h5>
-                <button onClick={clearFilter} className="btn m-0 badge bg-primary text-light fw-normal" title="Clear filter">
-                  Clear
-                </button>
-              </Title>
-
-              <div className="bg-white shadow-sm rounded p-3">
-
-                <FilterWrapper className="mb-3">
-                  <h6>Model</h6>
-                  <FilterList className="list-group">
-                    {
-                      bikeModels.map((model, index) => (
-                        <li key={index} className="list-group-item">
-                          <label htmlFor={'model_' + model} className='w-100' style={{ cursor: 'pointer' }}>
-                            <input
-                              onChange={(e) => handleFilter('model', model, e.target.checked)}
-                              type="checkbox" checked={filter.model.includes(model)}
-                              className="form-check-input me-2" id={'model_' + model}
-                            />
-                            <small>{model.toUpperCase()}</small>
-                          </label>
-                        </li>
-                      ))
-                    }
-                  </FilterList>
-                </FilterWrapper>
-
-                <hr />
-
-                <FilterWrapper className="mb-3">
-                  <h6>Color</h6>
-                  <FilterList className="list-group">
-                    {
-                      bikeColors.map((color, index) => (
-                        <li key={index} className="list-group-item">
-                          <label htmlFor={'color_' + color} className='w-100' style={{ cursor: 'pointer' }}>
-                            <input
-                              onChange={(e) => handleFilter('color', color, e.target.checked)}
-                              type="checkbox" checked={filter.color.includes(color)}
-                              className="form-check-input me-2" id={'color_' + color}
-                            />
-                            <small>{color.toUpperCase()}</small>
-                          </label>
-                        </li>
-                      ))
-                    }
-                  </FilterList>
-                </FilterWrapper>
-
-                <hr />
-
-                <FilterWrapper className="mb-3">
-                  <h6>Location</h6>
-                  <FilterList className="list-group">
-                    {
-                      availableLocations.map((location, index) => (
-                        <li key={index} className="list-group-item">
-                          <label htmlFor={'location_' + location} className='w-100' style={{ cursor: 'pointer' }}>
-                            <input
-                              onChange={(e) => handleFilter('location', location, e.target.checked)}
-                              type="checkbox" checked={filter.location.includes(location)}
-                              className="form-check-input me-2" id={'location_' + location}
-                            />
-                            <small>{location.toUpperCase()}</small>
-                          </label>
-                        </li>
-                      ))
-                    }
-                  </FilterList>
-                </FilterWrapper>
-
-                <hr />
-
-                <FilterWrapper className="mb-3">
-                  <h6>Avg. Ratings</h6>
-                  <FilterList className="list-group">
-                    {
-                      [4, 3, 2, 1].map((rate, index) => (
-                        <button
-                          onClick={() => handleFilter('rating', rate)}
-                          key={index} type="button" className={`list-group-item list-group-item-action ${filter.rating === rate && 'bg-light'}`}>
-                          <div className="d-flex gap-2">
-                            <span className="d-flex gap-1 align-items-center">
-                              <Star size={16} fill={rate > 0 ? primary : grey} color={rate > 0 ? primary : grey} />
-                              <Star size={16} fill={rate > 1 ? primary : grey} color={rate > 1 ? primary : grey} />
-                              <Star size={16} fill={rate > 2 ? primary : grey} color={rate > 2 ? primary : grey} />
-                              <Star size={16} fill={rate > 3 ? primary : grey} color={rate > 3 ? primary : grey} />
-                              <Star size={16} fill={rate > 4 ? primary : grey} color={rate > 4 ? primary : grey} />
-                            </span>
-                            <span>{'&'}&nbsp;above</span>
-                          </div>
-                        </button>
-                      ))
-                    }
-                  </FilterList>
-                </FilterWrapper>
-
-              </div>
-
+            <div className="d-none d-md-block col-12 col-md-3">
+              <FilterBox />
             </div>
 
             <div className="w-100">
 
-              <Title className="d-flex justify-content-end align-items-center gap-2 mb-2">
+              <Title className="d-flex justify-content-between align-items-center gap-2 mb-2 ps-md-3">
+                <div className="">
+                  <button onClick={() => setShowFilter(true)} className="btn btn-sm p-0 m-0 d-flex d-md-none align-items-center gap-2">
+                    <Filter size={20} />
+                    <h5 className="m-0">Filter</h5>
+                  </button>
+                </div>
                 {
                   authenticated ?
-                    <>
-                      <h5 className="h5 m-0">{availableBikes.length} Bikes available on</h5>
+                    <div className="d-flex justify-content-end align-items-center gap-2">
+                      <h5 className="h5 m-0">{availableBikes.length} Bikes</h5>
                       <input type="date" min={today} id="date" className="form-control w-auto" defaultValue={dateFilter} onChange={(e) => setDateFilter(e.target.value)} />
-                    </>
+                    </div>
                     : <></>
                 }
               </Title>
@@ -319,7 +363,7 @@ export const Store: React.FC<{}> = () => {
                     availableBikes.length > 0 ?
                       availableBikes.map((bike, index) => {
                         return (
-                          <BikeWrapper key={index} className="col-lg-4 mb-3 ps-3">
+                          <BikeWrapper key={index} className="col-12 col-md-4 mb-3 ps-md-3">
                             <Bike bike={bike} currentBike={currentBike} setCurrentBike={setCurrentBike} today={today} />
                           </BikeWrapper>
                         )
@@ -329,7 +373,7 @@ export const Store: React.FC<{}> = () => {
                     filteredBikes.length > 0 ?
                       filteredBikes.map((bike, index) => {
                         return (
-                          <BikeWrapper key={index} className="col-lg-4 mb-3 ps-3">
+                          <BikeWrapper key={index} className="col-12 col-md-4 mb-3 ps-md-3">
                             <Bike bike={bike} currentBike={currentBike} setCurrentBike={setCurrentBike} today={today} />
                           </BikeWrapper>
                         )

@@ -3,12 +3,21 @@ import styled from "styled-components"
 import Logo from '../assets/logo.svg'
 
 const Wrapper = styled.div`
-  height: 250px;
+  height: 150px;
   width: 100%;
+
+  @media (min-width: 768px) {
+    height: 250px;
+  }
 `
 const LogoWrapper = styled.div`
-  height: 60px;
+  height: 40px;
   width: fit-content;
+
+  @media (min-width: 768px) {
+    height: 60px;
+  }
+
 
   img {
     height: 100%;

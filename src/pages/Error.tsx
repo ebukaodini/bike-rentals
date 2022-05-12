@@ -14,16 +14,16 @@ export const Error: React.FC<{}> = () => {
 
   return (
     <div>
-      <PageWrapper className="container-lg text-dark vh-100">
+      <PageWrapper className="container text-dark vh-100">
 
         <div className="h-100 pt-5 d-flex justify-content-center">
           <div className="pt-5">
 
-            <LogoWrapper className="w-100 d-flex justify-content-center mb-lg-3">
+            <LogoWrapper className="w-100 d-flex justify-content-center mb-3">
               <img src={Logo} alt="Bike Rentals" title="Bike Rentals" className="mb-5 w-100 h-100 text-primary" />
             </LogoWrapper>
 
-            <div className="mb-lg-4 text-center">
+            <div className="text-center">
               <h1 className="fw-bold">Unknown Page</h1>
               <p>You've reached an unknown page. Go back to reserve a bike.</p>
               <button className="btn btn-dark btn-sm" onClick={goBack}>Go back</button>

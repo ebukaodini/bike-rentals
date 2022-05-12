@@ -6,8 +6,12 @@ import { Star } from "react-feather"
 import { useEffect, useState } from "react"
 
 const HeroWrapper = styled.div`
-  height: 300px;
+  height: 400px;
   width: 100%;
+  
+  @media (min-width: 768px) {
+    height: 300px;
+  }
 
   img {
     height: 100%;
@@ -16,12 +20,16 @@ const HeroWrapper = styled.div`
   }
 
   div {
-    width: 30%;
+    width: auto;
     position: absolute;
     top: 0%;
     left: 0%;
     background-color: #0000005d;
     font-size: 24px;
+
+    @media (min-width: 768px) {
+      width: 30%;
+    }
   }
 `
 const Row = styled.tr`
@@ -96,7 +104,7 @@ export const Reservations: React.FC<{}> = () => {
     <div>
       <StoreWrapper>
         <>
-          <HeroWrapper className="shadow-sm position-relative mb-lg-3">
+          <HeroWrapper className="shadow-sm position-relative mb-3 rounded">
             <img src={BikeHero} alt="Hero" className="shadow-sm rounded" />
             <div className="p-3 m-4 text-alt-light fw-bolder rounded">
               Reserve a Bike for any type of Journey.
@@ -111,7 +119,7 @@ export const Reservations: React.FC<{}> = () => {
                   <h2 className="text-dark fw-bolder m-0">Reservations</h2>
                 </div>
 
-                <div className="w-100 bg-white shadow-sm p-3">
+                <div className="w-100 bg-white shadow-sm p-3 overflow-auto">
                   <table className="w-100 table table-hover">
                     <thead>
                       <tr>
