@@ -64,13 +64,13 @@ The requirements for the test project are:
       ✔ Reservations @done(22-05-12 19:04)
       ✔ Error @done(22-05-12 18:56)
       Admin:
-        ☐ Dashboard
-        ☐ Bikes
-        ☐ Users
-        ☐ Managers
-        ☐ Reservations
-        ☐ User Reservations
-        ☐ Bike Reservations
+        ✔ Dashboard @done(22-05-12 19:22)
+        ✔ Bikes @done(22-05-12 19:22)
+        ✔ Users @done(22-05-12 19:22)
+        ✔ Managers @done(22-05-12 19:22)
+        ✔ Reservations @done(22-05-12 19:22)
+        ✔ User Reservations @done(22-05-12 19:22)
+        ✔ Bike Reservations @done(22-05-12 19:22)
 
   
   Other notes:
