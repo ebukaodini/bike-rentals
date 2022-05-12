@@ -33,12 +33,12 @@ export const Bikes: React.FC<{}> = () => {
   }
   const handleCreateBike = () => {
     modal(
-      <CreateBikeModal />
+      <CreateBikeModal />, undefined, true
     )
   }
   const handleEditBike = (bike: Bike) => {
     modal(
-      <CreateBikeModal isEditing={true} bike={bike} />
+      <CreateBikeModal isEditing={true} bike={bike} />, undefined, true
     )
   }
 
@@ -51,7 +51,7 @@ export const Bikes: React.FC<{}> = () => {
           <button onClick={handleCreateBike} className="btn btn-sm btn-primary">Add Bike</button>
         </div>
 
-        <div className="w-100 bg-white shadow-sm p-3">
+        <div className="w-100 bg-white shadow-sm p-3 overflow-auto">
           <table className="w-100 table table-hover">
             <thead>
               <tr>

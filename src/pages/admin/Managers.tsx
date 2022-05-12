@@ -33,12 +33,12 @@ export const Managers: React.FC<{}> = () => {
   }
   const handleCreateUser = () => {
     modal(
-      <CreateUserModal role="manager" />
+      <CreateUserModal role="manager" />, undefined, true
     )
   }
   const handleEditUser = (user: User) => {
     modal(
-      <EditUserModal role="manager" user={user} />
+      <EditUserModal role="manager" user={user} />, undefined, true
     )
   }
 
@@ -51,7 +51,7 @@ export const Managers: React.FC<{}> = () => {
           <button onClick={handleCreateUser} className="btn btn-sm btn-primary">Add Manager</button>
         </div>
 
-        <div className="w-100 bg-white shadow-sm p-3">
+        <div className="w-100 bg-white shadow-sm p-3 overflow-auto">
           <table className="w-100 table table-hover">
             <thead>
               <tr>

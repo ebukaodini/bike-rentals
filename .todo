@@ -61,7 +61,7 @@ The requirements for the test project are:
       ✔ Store @done(22-05-12 18:55)
       ✔ Login @done(22-05-12 18:59)
       ✔ Register @done(22-05-12 18:59)
-      ☐ Reservations
+      ✔ Reservations @done(22-05-12 19:04)
       ✔ Error @done(22-05-12 18:56)
       Admin:
         ☐ Dashboard

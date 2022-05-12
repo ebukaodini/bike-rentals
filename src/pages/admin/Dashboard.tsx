@@ -51,10 +51,10 @@ export const Dashboard: React.FC<{}> = () => {
         <>
           <h2 className="text-dark fw-bolder mb-5">Dashboard</h2>
 
-          <div className="w-100 d-flex flex-wrap gap-lg-3 gap-2">
+          <div className="w-100 d-flex flex-wrap gap-3 gap-2">
             {
               stats.map((stat, index) => (
-                <div key={index} className="col-lg-5 col-md-5 col-10 shadow-sm bg-white rounded h-100 p-3">
+                <div key={index} className="col-md-5 col-12 shadow-sm bg-white rounded h-100 p-3">
                   <Link to={stat.route} className="text-decoration-none text-dark h-100">
                     <h4 className="m-0 pb-2">{stat.title}</h4>
                     <p className="m-0 pb-2">{stat.stats}</p>

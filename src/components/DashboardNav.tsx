@@ -4,7 +4,11 @@ import styled from "styled-components"
 
 const Wrapper = styled.div`
   min-height: 500px;
-  width: 300px;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    width: 300px;
+  }
 `
 const Action = styled.div`
   :hover {
@@ -50,7 +54,7 @@ export const DashboardNav: React.FC<{}> = () => {
 
   return (
     <Wrapper className='bg-white shadow-sm rounded'>
-      <div className="list-unstyled h-100 d-flex gap-lg-2 flex-column align-items-center p-3">
+      <div className="list-unstyled h-100 d-flex gap-2 flex-column align-items-center p-3">
         {
           actions.map((action, index) => (
             <Link key={index} className="w-100 text-dark text-decoration-none" to={action.route}>

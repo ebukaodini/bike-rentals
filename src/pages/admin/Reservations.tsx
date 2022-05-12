@@ -26,7 +26,7 @@ export const AdminReservations: React.FC<{}> = () => {
           <h2 className="text-dark fw-bolder m-0">Reservations</h2>
         </div>
 
-        <div className="w-100 bg-white shadow-sm p-3">
+        <div className="w-100 bg-white shadow-sm p-3 overflow-auto">
           <table className="w-100 table table-hover">
             <thead>
               <tr>
