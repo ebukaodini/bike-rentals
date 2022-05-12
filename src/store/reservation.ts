@@ -12,6 +12,8 @@ export type Reservation = {
   reservedFrom: string
   reservedTo: string
   timestamp: number
+  rating: number
+  isRated: boolean
   isActive: boolean
 }
 
@@ -23,6 +25,9 @@ interface ReservationMethods extends State {
   restoreDefault: () => void
   getReservations: () => Promise<void>
   addReservation: (
+    reservation: Reservation
+  ) => Promise<any>
+  updateReservation: (
     reservation: Reservation
   ) => Promise<any>
 }
@@ -53,7 +58,13 @@ export const useReservationStore = create<ReservationState & ReservationMethods>
     },
     addReservation: async (reservation) => {
       return await dbSet(ref(database, path + reservation.id), reservation)
-        .then(async _=> {
+        .then(async _ => {
+          return await get().getReservations()
+        })
+    },
+    updateReservation: async (reservation) => {
+      return await update(ref(database, path + reservation.id), reservation)
+        .then(async _ => {
           return await get().getReservations()
         })
     }
