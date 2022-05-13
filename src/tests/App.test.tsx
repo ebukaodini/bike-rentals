@@ -113,4 +113,118 @@ test('testing route \'/dashboard\'', () => {
   expect(history.location.pathname).toEqual('/')
 })
 
+test('testing route \'/dashboard/users\'', () => {
+  const history = createMemoryHistory()
+  const route = '/dashboard/users'
+  history.push(route)
+  render(
+    <Router history={history} >
+      <React.StrictMode>
+        <ThemeProvider theme={Theme}>
+          <App />
+        </ThemeProvider>
+      </React.StrictMode>
+    </Router>
+  )
+
+  // export redirect back to / when user not authenticated
+  expect(screen.getByText('Reserve a Bike for any type of Journey.')).toBeInTheDocument()
+  expect(history.location.pathname).toEqual('/')
+})
+
+test('testing route \'/dashboard/bikes\'', () => {
+  const history = createMemoryHistory()
+  const route = '/dashboard/bikes'
+  history.push(route)
+  render(
+    <Router history={history} >
+      <React.StrictMode>
+        <ThemeProvider theme={Theme}>
+          <App />
+        </ThemeProvider>
+      </React.StrictMode>
+    </Router>
+  )
+
+  // export redirect back to / when user not authenticated
+  expect(screen.getByText('Reserve a Bike for any type of Journey.')).toBeInTheDocument()
+  expect(history.location.pathname).toEqual('/')
+})
+
+test('testing route \'/dashboard/reservations\'', () => {
+  const history = createMemoryHistory()
+  const route = '/dashboard/reservations'
+  history.push(route)
+  render(
+    <Router history={history} >
+      <React.StrictMode>
+        <ThemeProvider theme={Theme}>
+          <App />
+        </ThemeProvider>
+      </React.StrictMode>
+    </Router>
+  )
+
+  // export redirect back to / when user not authenticated
+  expect(screen.getByText('Reserve a Bike for any type of Journey.')).toBeInTheDocument()
+  expect(history.location.pathname).toEqual('/')
+})
+
+test('testing route \'/dashboard/managers\'', () => {
+  const history = createMemoryHistory()
+  const route = '/dashboard/managers'
+  history.push(route)
+  render(
+    <Router history={history} >
+      <React.StrictMode>
+        <ThemeProvider theme={Theme}>
+          <App />
+        </ThemeProvider>
+      </React.StrictMode>
+    </Router>
+  )
+
+  // export redirect back to / when user not authenticated
+  expect(screen.getByText('Reserve a Bike for any type of Journey.')).toBeInTheDocument()
+  expect(history.location.pathname).toEqual('/')
+})
+
+test('testing route \'/dashboard/users/12345/reservations\'', () => {
+  const history = createMemoryHistory()
+  const route = '/dashboard/users/12345/reservations'
+  history.push(route)
+  render(
+    <Router history={history} >
+      <React.StrictMode>
+        <ThemeProvider theme={Theme}>
+          <App />
+        </ThemeProvider>
+      </React.StrictMode>
+    </Router>
+  )
+
+  // export redirect back to / when user not authenticated
+  expect(screen.getByText('Reserve a Bike for any type of Journey.')).toBeInTheDocument()
+  expect(history.location.pathname).toEqual('/')
+})
+
+test('testing route \'/dashboard/bikes/12345/reservations\'', () => {
+  const history = createMemoryHistory()
+  const route = '/dashboard/bikes/12345/reservations'
+  history.push(route)
+  render(
+    <Router history={history} >
+      <React.StrictMode>
+        <ThemeProvider theme={Theme}>
+          <App />
+        </ThemeProvider>
+      </React.StrictMode>
+    </Router>
+  )
+
+  // export redirect back to / when user not authenticated
+  expect(screen.getByText('Reserve a Bike for any type of Journey.')).toBeInTheDocument()
+  expect(history.location.pathname).toEqual('/')
+})
+
 

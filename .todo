@@ -48,13 +48,13 @@ The requirements for the test project are:
       ✔ Reservations @done(22-05-13 00:56)
       ✔ Error @done(22-05-13 00:56)
       Admin:
-        ☐ Dashboard
-        ☐ Bikes
-        ☐ Users
-        ☐ Managers
-        ☐ Reservations
-        ☐ User Reservations
-        ☐ Bike Reservations
+        ✔ Dashboard @done(22-05-13 03:12)
+        ✔ Bikes @done(22-05-13 03:14)
+        ✔ Users @done(22-05-13 03:14)
+        ✔ Managers @done(22-05-13 03:14)
+        ✔ Reservations @done(22-05-13 03:14)
+        ✔ User Reservations @done(22-05-13 03:15)
+        ✔ Bike Reservations @done(22-05-13 03:15)
 
   Optimisation: 
     Screen Compatibility:
