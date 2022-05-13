@@ -4,6 +4,7 @@ import BikeHero from '../assets/bike-hero.svg'
 import { Bike, Reservation, useAuthStore, useBikeStore, useModalStore, useReservationStore } from "../store"
 import { Star } from "react-feather"
 import { useEffect, useState } from "react"
+import { useHistory } from "react-router-dom"
 
 const HeroWrapper = styled.div`
   height: 400px;
@@ -36,15 +37,23 @@ const Row = styled.tr`
   cursor: pointer;
 `
 
-export const Reservations: React.FC<{}> = () => {
+const Reservations: React.FC<{}> = () => {
 
   const { bikes, updateBike } = useBikeStore()
-  const { user } = useAuthStore()
+  const { user, authenticated } = useAuthStore()
   const { reservations, updateReservation } = useReservationStore()
   const [userReservations, setUserReservations] = useState<Reservation[]>([])
   const [today, setToday] = useState<string>('')
   const { confirm, toast } = useModalStore()
   const { grey, primary } = useTheme()
+  const { replace } = useHistory()
+
+  useEffect(() => {
+    if (authenticated === false || user?.role !== 'user') {
+      toast('Unauthorized access', 'danger')
+      replace('/')
+    }
+  }, [authenticated, replace, toast, user?.role])
 
   useEffect(() => {
     const d = new Date()
@@ -155,7 +164,7 @@ export const Reservations: React.FC<{}> = () => {
                                   <span className="d-flex gap-1 align-items-center">
                                     {
                                       [0, 1, 2, 3, 4].map((rate, index) => (
-                                        <button key={index}
+                                        <button aria-label={'rake bike ' + rate} key={index}
                                           disabled={reservation.isRated === true || reservation.isActive === false || (new Date(today)) < (new Date(reservation.reservedFrom))}
                                           onClick={() => handleRateBike(reservation, bike, (rate + 1))}
                                           title={`Rate ${(rate + 1)}`} className='btn m-0 p-0'>
@@ -202,3 +211,4 @@ export const Reservations: React.FC<{}> = () => {
     </div >
   )
 }
+export default Reservations

@@ -17,17 +17,17 @@ type props = {
 
 export const DashboardWrapper: React.FC<props> = ({ children }) => {
 
-  const { user } = useAuthStore()
+  const { authenticated, user } = useAuthStore()
   const { replace } = useHistory()
   const { toast } = useModalStore()
   const [showMenu, setShowMenu] = useState(false)
 
   useEffect(() => {
-    if (user?.role === 'user') {
+    if (authenticated === false || user?.role === 'user') {
       toast('Unauthorized access', 'danger')
       replace('/')
     }
-  }, [replace, toast, user?.role])
+  }, [authenticated, replace, toast, user?.role])
 
   return (
     <PageWrapper>
@@ -45,7 +45,7 @@ export const DashboardWrapper: React.FC<props> = ({ children }) => {
             <Content className="p-md-3 w-100">
 
               <div className="d-block d-md-none mb-4">
-                <button onClick={() => setShowMenu(!showMenu)} className="btn btn-sm p-0 m-0 d-flex d-md-none align-items-center gap-2">
+                <button aria-label="Menu" onClick={() => setShowMenu(!showMenu)} className="btn btn-sm p-0 m-0 d-flex d-md-none align-items-center gap-2">
                   <Menu size={20} />
                   <h5 className="m-0">Menu</h5>
                 </button>

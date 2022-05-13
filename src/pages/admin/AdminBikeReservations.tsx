@@ -13,7 +13,7 @@ const Action = styled.button`
   padding: 0px;
 `
 
-export const AdminBikeReservations: React.FC<{}> = () => {
+const AdminBikeReservations: React.FC<{}> = () => {
 
   const { users } = useUserStore()
   const { reservations } = useReservationStore()
@@ -31,7 +31,7 @@ export const AdminBikeReservations: React.FC<{}> = () => {
     <DashboardWrapper>
       <>
         <div className="w-100 d-flex justify-content-start align-items-center mb-4 gap-2">
-          <button onClick={goBack} className="btn btn-sm m-0 p-0">
+          <button aria-label='go back' onClick={goBack} className="btn btn-sm m-0 p-0">
             <ArrowLeft size={24} />
           </button>
           <h2 className="text-dark fw-bolder m-0">Bike Reservations</h2>
@@ -94,3 +94,5 @@ export const AdminBikeReservations: React.FC<{}> = () => {
     </DashboardWrapper>
   )
 }
+
+export default AdminBikeReservations

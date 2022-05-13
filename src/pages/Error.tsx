@@ -8,7 +8,7 @@ const LogoWrapper = styled.div`
   width: fit-content;
 `
 
-export const Error: React.FC<{}> = () => {
+const Error: React.FC<{}> = () => {
 
   const { goBack } = useHistory()
 
@@ -26,7 +26,7 @@ export const Error: React.FC<{}> = () => {
             <div className="text-center">
               <h1 className="fw-bold">Unknown Page</h1>
               <p>You've reached an unknown page. Go back to reserve a bike.</p>
-              <button className="btn btn-dark btn-sm" onClick={goBack}>Go back</button>
+              <button aria-label='Go back' className="btn btn-dark btn-sm" onClick={goBack}>Go back</button>
             </div>
 
           </div>
@@ -36,3 +36,5 @@ export const Error: React.FC<{}> = () => {
     </div>
   )
 }
+
+export default Error

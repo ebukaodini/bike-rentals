@@ -1,15 +1,16 @@
-export { Register } from './Register'
-export { Login } from './Login'
+import Register from './Register'
+import Login from './Login'
+import Store from './Store'
+import Reservations from './Reservations'
+import Dashboard from './admin/Dashboard'
+import Users from './admin/Users'
+import Managers from './admin/Managers'
+import Bikes from './admin/Bikes'
+import AdminReservations from './admin/Reservations'
+import AdminUserReservations from './admin/AdminUserReservations'
+import AdminBikeReservations from './admin/AdminBikeReservations'
+import Error from './Error'
 
-export { Store } from './Store'
-export { Reservations } from './Reservations'
-
-export { Dashboard } from './admin/Dashboard'
-export { Users } from './admin/Users'
-export { Managers } from './admin/Managers'
-export { Bikes } from './admin/Bikes'
-export { AdminReservations } from './admin/Reservations'
-export { AdminUserReservations } from './admin/AdminUserReservations'
-export { AdminBikeReservations } from './admin/AdminBikeReservations'
-
-export { Error } from './Error'
+export {
+  Register, Login, Store, Reservations, Dashboard, Users, Managers, Bikes, AdminReservations, AdminUserReservations, AdminBikeReservations, Error,
+}

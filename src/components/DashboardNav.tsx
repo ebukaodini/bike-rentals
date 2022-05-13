@@ -57,7 +57,7 @@ export const DashboardNav: React.FC<{}> = () => {
       <div className="list-unstyled h-100 d-flex gap-2 flex-column align-items-center p-3">
         {
           actions.map((action, index) => (
-            <Link key={index} className="w-100 text-dark text-decoration-none" to={action.route}>
+            <Link aria-label={"Go to " + action.title} key={index} className="w-100 text-dark text-decoration-none" to={action.route}>
               <Action
                 className={`w-100 p-2 d-flex border border-light justify-content-between 
                 align-content-center ${action.pages.includes(pathname) && 'active'}`}>

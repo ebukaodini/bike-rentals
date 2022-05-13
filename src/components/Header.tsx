@@ -64,7 +64,7 @@ export const Header: React.FC<{}> = () => {
 
           <div className="d-flex gap-2 align-items-center">
             <LogoWrapper>
-              <Link to='/' className="">
+              <Link aria-label={"Go to Store"} to='/' className="">
                 <img src={Logo} alt="Bike Rentals" title="Bike Rentals" className="w-100 h-100" />
               </Link>
             </LogoWrapper>
@@ -88,7 +88,7 @@ export const Header: React.FC<{}> = () => {
                   </Action>
                   :
                   <Action title="Go to Dashboard">
-                    <Link to='/dashboard'>
+                    <Link  aria-label={"Go to Dashboard"} to='/dashboard'>
                       <Layout size={24} />
                     </Link>
                   </Action>
@@ -98,13 +98,13 @@ export const Header: React.FC<{}> = () => {
             {
               authenticated ?
                 <Action title="Logout">
-                  <button onClick={handleLogout} type="button" className="btn btn-sm m-0 p-0">
+                  <button aria-label="Logout" onClick={handleLogout} type="button" className="btn btn-sm m-0 p-0">
                     <LogOut size={24} />
                   </button>
                 </Action>
                 :
                 <Action title="Login">
-                  <Link to='/login'>
+                  <Link aria-label={"Go to Login"} to='/login'>
                     <LogIn size={24} />
                   </Link>
                 </Action>

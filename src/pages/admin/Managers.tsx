@@ -11,7 +11,7 @@ const Action = styled.button`
   padding: 0px;
 `
 
-export const Managers: React.FC<{}> = () => {
+const Managers: React.FC<{}> = () => {
 
   const { managers, deleteUser } = useUserStore()
   const { confirm, modal, toast } = useModalStore()
@@ -48,7 +48,7 @@ export const Managers: React.FC<{}> = () => {
         <div className="w-100 d-flex justify-content-between align-items-center mb-4">
           <h2 className="text-dark fw-bolder m-0">Managers</h2>
 
-          <button onClick={handleCreateUser} className="btn btn-sm btn-primary">Add Manager</button>
+          <button aria-label='Add bike' onClick={handleCreateUser} className="btn btn-sm btn-primary">Add Manager</button>
         </div>
 
         <div className="w-100 bg-white shadow-sm p-3 overflow-auto">
@@ -95,3 +95,5 @@ export const Managers: React.FC<{}> = () => {
     </DashboardWrapper>
   )
 }
+
+export default Managers

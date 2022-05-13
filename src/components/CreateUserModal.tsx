@@ -76,6 +76,7 @@ export const CreateUserModal: React.FC<{ role: string }> = ({ role }) => {
         <h4 className="fw-bold">Create {role === 'user' ? 'User' : 'Manager'}</h4>
 
         <button type="button"
+          name="Close"
           className="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
@@ -85,13 +86,13 @@ export const CreateUserModal: React.FC<{ role: string }> = ({ role }) => {
 
       {
         errors.length > 0 &&
-        <div className="w-100 alert alert-danger py">
+        <ul className="w-100 alert alert-danger py">
           {
             errors.map((error, index) => (
               <li key={index}>{error}</li>
             ))
           }
-        </div>
+        </ul>
       }
 
       <div className="bg-white shadow-sm p-3">
@@ -115,7 +116,7 @@ export const CreateUserModal: React.FC<{ role: string }> = ({ role }) => {
 
           <div className="position-relative">
             <input disabled={isSubmitting} required onChange={(e) => handleChange('password', e.target.value)} type={showPassword ? 'text' : 'password'} className="form-control py-2 px-3 text-dark" id="password" placeholder="********" />
-            <button type="button" onClick={toggleShowPassword} title='Toggle password' className="bg-transparent border-0 position-absolute top-50 end-0 translate-middle p-0 pb-1">
+            <button aria-label="Toggle password" type="button" onClick={toggleShowPassword} title='Toggle password' className="bg-transparent border-0 position-absolute top-50 end-0 translate-middle p-0 pb-1">
               {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
             </button>
           </div>
@@ -123,7 +124,7 @@ export const CreateUserModal: React.FC<{ role: string }> = ({ role }) => {
         </div>
 
         <div className="text-center">
-          <button disabled={isSubmitting} type="submit" className="btn btn-primary form-control mb-2">
+          <button aria-label="Create account" disabled={isSubmitting} type="submit" className="btn btn-primary form-control mb-2">
             {isSubmitting
               ?
               <>

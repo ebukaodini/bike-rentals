@@ -102,7 +102,7 @@ export const Bike: React.FC<{ bike: TBike, currentBike: number, setCurrentBike: 
                 <span className="d-flex gap-1 align-items-center">
                   {
                     [0, 1, 2, 3, 4].map((rate, index) => (
-                      <Star size={16} className='mb-1'
+                      <Star key={index} size={16} className='mb-1'
                         fill={rating > rate ? primary : grey}
                         color={rating > rate ? primary : grey} />
                     ))
@@ -113,7 +113,7 @@ export const Bike: React.FC<{ bike: TBike, currentBike: number, setCurrentBike: 
               <div className="mb-2">{bike.location}</div>
               {
                 user?.role === 'user' &&
-                <button onClick={() => { setToReserve(true); setCurrentBike(bike.id) }} className="btn btn-primary btn-sm w-100">Reserve Bike</button>
+                <button aria-label='Reserve Bike' onClick={() => { setToReserve(true); setCurrentBike(bike.id) }} className="btn btn-primary btn-sm w-100">Reserve Bike</button>
               }
             </>
             :
@@ -138,9 +138,9 @@ export const Bike: React.FC<{ bike: TBike, currentBike: number, setCurrentBike: 
 
               <div className="w-auto d-flex justify-content-between align-items-center gap-2">
 
-                <button disabled={isReserving} onClick={handleCancel} className="btn btn-muted btn-sm w-100">Cancel</button>
+                <button aria-label='Cancel reservation' disabled={isReserving} onClick={handleCancel} className="btn btn-muted btn-sm w-100">Cancel</button>
 
-                <button disabled={isReserving} onClick={handleReserveBike} className="btn btn-primary btn-sm w-100">
+                <button aria-label='Reserve Bike' disabled={isReserving} onClick={handleReserveBike} className="btn btn-primary btn-sm w-100">
                   {
                     isReserving ?
                       <>

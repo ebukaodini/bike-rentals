@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import { DashboardWrapper } from "../../components"
 import { useBikeStore, useReservationStore, useUserStore } from "../../store"
 
-export const Dashboard: React.FC<{}> = () => {
+const Dashboard: React.FC<{}> = () => {
 
   const { users, managers } = useUserStore()
   const { bikes } = useBikeStore()
@@ -68,3 +68,5 @@ export const Dashboard: React.FC<{}> = () => {
     </div>
   )
 }
+
+export default Dashboard

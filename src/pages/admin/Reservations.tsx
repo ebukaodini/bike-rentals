@@ -12,7 +12,7 @@ const Action = styled.button`
   padding: 0px;
 `
 
-export const AdminReservations: React.FC<{}> = () => {
+const AdminReservations: React.FC<{}> = () => {
 
   const { users } = useUserStore()
   const { reservations } = useReservationStore()
@@ -95,3 +95,5 @@ export const AdminReservations: React.FC<{}> = () => {
     </DashboardWrapper>
   )
 }
+
+export default AdminReservations

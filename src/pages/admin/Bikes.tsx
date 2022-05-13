@@ -12,7 +12,7 @@ const Action = styled.button`
   padding: 0px;
 `
 
-export const Bikes: React.FC<{}> = () => {
+const Bikes: React.FC<{}> = () => {
 
   const { confirm, modal, toast } = useModalStore()
   const { bikes, deleteBike } = useBikeStore()
@@ -48,7 +48,7 @@ export const Bikes: React.FC<{}> = () => {
         <div className="w-100 d-flex justify-content-between align-items-center mb-4">
           <h2 className="text-dark fw-bolder m-0">Bikes</h2>
 
-          <button onClick={handleCreateBike} className="btn btn-sm btn-primary">Add Bike</button>
+          <button aria-label='Add bike' onClick={handleCreateBike} className="btn btn-sm btn-primary">Add Bike</button>
         </div>
 
         <div className="w-100 bg-white shadow-sm p-3 overflow-auto">
@@ -77,7 +77,7 @@ export const Bikes: React.FC<{}> = () => {
                             {bike.description}
                             {
                               bike.isAvailable &&
-                              <CheckCircle className="text-primary" size={12} />
+                              <CheckCircle className="text-primary" size={14} />
                             }
                           </div>
                         </td>
@@ -87,7 +87,7 @@ export const Bikes: React.FC<{}> = () => {
                         <td>
                           {
                             [0, 1, 2, 3, 4].map((rate, index) => (
-                              <Star size={16} className='mb-1'
+                              <Star key={index} size={16} className='mb-1'
                                 fill={rating > rate ? primary : grey}
                                 color={rating > rate ? primary : grey} />
                             ))
@@ -122,3 +122,5 @@ export const Bikes: React.FC<{}> = () => {
     </DashboardWrapper>
   )
 }
+
+export default Bikes

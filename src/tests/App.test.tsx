@@ -72,13 +72,31 @@ test('testing route \'/reservations\'', () => {
     </Router>
   )
 
+  // export redirect back to / when user not authenticated
   expect(screen.getByText('Reserve a Bike for any type of Journey.')).toBeInTheDocument()
-  expect(screen.getByText('Reservations')).toBeInTheDocument()
+  expect(history.location.pathname).toEqual('/')
 })
 
-test('testing route \'/wrongpage\'', () => {
+test('testing route \'/wrongpage\'', async () => {
   const history = createMemoryHistory()
   const route = '/wrongpage'
+  history.push(route)
+  await render(
+    <Router history={history} >
+      <React.StrictMode>
+        <ThemeProvider theme={Theme}>
+          <App />
+        </ThemeProvider>
+      </React.StrictMode>
+    </Router>,
+  )
+
+  expect(screen.getByText('Unknown Page')).toBeInTheDocument()
+})
+
+test('testing route \'/dashboard\'', () => {
+  const history = createMemoryHistory()
+  const route = '/dashboard'
   history.push(route)
   render(
     <Router history={history} >
@@ -90,24 +108,9 @@ test('testing route \'/wrongpage\'', () => {
     </Router>
   )
 
-  expect(screen.getByText('Unknown Page')).toBeInTheDocument()
+  // export redirect back to / when user not authenticated
+  expect(screen.getByText('Reserve a Bike for any type of Journey.')).toBeInTheDocument()
+  expect(history.location.pathname).toEqual('/')
 })
-
-// test('testing route \'/dashboard\'', () => {
-//   const history = createMemoryHistory()
-//   const route = '/dashboard'
-//   history.push(route)
-//   render(
-//     <Router history={history} >
-//       <React.StrictMode>
-//         <ThemeProvider theme={Theme}>
-//           <App />
-//         </ThemeProvider>
-//       </React.StrictMode>
-//     </Router>
-//   )
-
-//   expect(screen.getByText('Dashboard')).toBeInTheDocument()
-// })
 
 

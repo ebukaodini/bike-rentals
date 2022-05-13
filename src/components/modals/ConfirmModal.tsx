@@ -6,7 +6,7 @@ export const ConfirmModal: React.FC = () => {
 
   return (
     <>
-      <button id="app-confirm-modal-toggle-btn" type="button" className="btn d-none" data-bs-toggle="modal" data-bs-target="#app-confirm-modal" />
+      <button aria-label="toggle modal" id="app-confirm-modal-toggle-btn" type="button" className="btn d-none" data-bs-toggle="modal" data-bs-target="#app-confirm-modal" />
 
       <div id="app-confirm-modal" style={{ zIndex: '5000' }} className="modal fade" data-bs-keyboard="false" tabIndex={-1} data-bs-backdrop="static" aria-hidden={true}>
 
@@ -20,6 +20,7 @@ export const ConfirmModal: React.FC = () => {
                 <div className="w-100">{confirmProps?.message}</div>
 
                 <button type="button"
+                  name="Close"
                   className="btn-close"
                   data-bs-dismiss="modal"
                   aria-label="Close"
@@ -30,6 +31,7 @@ export const ConfirmModal: React.FC = () => {
               <div className="d-flex justify-content-end">
 
                 <button type="button"
+                  name={confirmProps?.cancelText ?? 'No'}
                   className={`ms-2 btn btn-sm btn-muted text-dark`}
                   data-bs-dismiss="modal"
                   onClick={() => confirmProps?.onCancel!()}
@@ -38,6 +40,7 @@ export const ConfirmModal: React.FC = () => {
                 </button>
 
                 <button type="button"
+                  name={confirmProps?.confirmText ?? 'Confirm'}
                   id="__confirm_modal_confirm_btn"
                   className={`ms-2 btn btn-sm btn-${confirmProps?.context}`}
                   data-bs-dismiss="modal"

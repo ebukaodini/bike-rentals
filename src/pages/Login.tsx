@@ -19,7 +19,7 @@ const LogoWrapper = styled.div`
 `
 const Form = styled.form``
 
-export const Login: React.FC<{}> = () => {
+const Login: React.FC<{}> = () => {
   const { login } = useAuthStore()
   const [credentials, setCredentials] = useState<LoginCredentials>({
     email: '',
@@ -82,13 +82,13 @@ export const Login: React.FC<{}> = () => {
 
             {
               errors.length > 0 &&
-              <div className="w-100 alert alert-danger py">
+              <ul className="w-100 alert alert-danger py">
                 {
                   errors.map((error, index) => (
                     <li key={index}>{error}</li>
                   ))
                 }
-              </div>
+              </ul>
             }
 
             <div className="mb-3">
@@ -101,7 +101,7 @@ export const Login: React.FC<{}> = () => {
 
               <div className="position-relative">
                 <input disabled={isSubmitting} required onChange={(e) => handleChange('password', e.target.value)} type={showPassword ? 'text' : 'password'} className="form-control py-2 px-3 text-dark" id="password" placeholder="********" />
-                <button type="button" onClick={toggleShowPassword} title='Toggle password' className="bg-transparent border-0 position-absolute top-50 end-0 translate-middle p-0 pb-1">
+                <button aria-label='toggle password' type="button" onClick={toggleShowPassword} title='Toggle password' className="bg-transparent border-0 position-absolute top-50 end-0 translate-middle p-0 pb-1">
                   {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
               </div>
@@ -109,7 +109,7 @@ export const Login: React.FC<{}> = () => {
             </div>
 
             <div className="text-center">
-              <button disabled={isSubmitting} type="submit" className="btn btn-lg btn-primary form-control mb-2">
+              <button aria-label='Login' disabled={isSubmitting} type="submit" className="btn btn-lg btn-primary form-control mb-2">
                 {isSubmitting
                   ?
                   <>
@@ -118,7 +118,7 @@ export const Login: React.FC<{}> = () => {
                   </>
                   : 'Login'}
               </button>
-              <span>Don't have an account? <Link to='/register' className="text-dark">Create Account</Link>.</span>
+              <span>Don't have an account? <Link  aria-label={"Go to Register"} to='/register' className="text-dark">Create Account</Link>.</span>
             </div>
 
           </Form>
@@ -129,3 +129,5 @@ export const Login: React.FC<{}> = () => {
     </div>
   )
 }
+
+export default Login

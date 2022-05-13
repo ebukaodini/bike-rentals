@@ -82,6 +82,7 @@ export const CreateBikeModal: React.FC<{ isEditing?: boolean, bike?: Bike }> = (
         <h4 className="fw-bold">{isEditing ? 'Update Bike' : 'Add a New Bike'}</h4>
 
         <button type="button"
+          name="Close"
           className="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
@@ -91,13 +92,13 @@ export const CreateBikeModal: React.FC<{ isEditing?: boolean, bike?: Bike }> = (
 
       {
         errors.length > 0 &&
-        <div className="w-100 alert alert-danger py">
+        <ul className="w-100 alert alert-danger py">
           {
             errors.map((error, index) => (
               <li key={index}>{error}</li>
             ))
           }
-        </div>
+        </ul>
       }
 
       <div className="bg-white shadow-sm p-3">
@@ -145,7 +146,7 @@ export const CreateBikeModal: React.FC<{ isEditing?: boolean, bike?: Bike }> = (
         </div>
 
         <div className="text-center">
-          <button disabled={isSubmitting} type="submit" className="btn btn-primary form-control mb-2">
+          <button aria-label={isEditing ? 'Update' : 'Add'} disabled={isSubmitting} type="submit" className="btn btn-primary form-control mb-2">
             {
               isSubmitting
                 ?

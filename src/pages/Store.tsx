@@ -40,7 +40,7 @@ const BikeWrapper = styled.div`
 `
 const FilterWrapper = styled.div`
 `
-const FilterList = styled.div`
+const FilterList = styled.ul`
   max-height: 200px;
   height: auto;
   overflow-y: auto;
@@ -57,7 +57,7 @@ type filterType = {
   rating: number
 }
 
-export const Store: React.FC<{}> = () => {
+const Store: React.FC<{}> = () => {
 
   const { bikes } = useBikeStore()
   const { authenticated } = useAuthStore()
@@ -200,6 +200,7 @@ export const Store: React.FC<{}> = () => {
           showFilter === true &&
           <div className="d-flex mb-1 justify-content-end">
             <button type="button"
+              name='Close'
               className="btn-close d-block d-md-none"
               data-bs-dismiss="modal"
               aria-label="Close"
@@ -210,7 +211,7 @@ export const Store: React.FC<{}> = () => {
 
         <Title className="d-flex align-items-center justify-content-between mb-2">
           <h5 className="text-dark m-0">Filter</h5>
-          <button onClick={clearFilter} className="btn m-0 badge bg-primary text-light fw-normal" title="Clear filter">
+          <button aria-label='clear filter' onClick={clearFilter} className="btn m-0 badge bg-primary text-dark fw-normal" title="Clear filter">
             Clear
           </button>
         </Title>
@@ -319,13 +320,12 @@ export const Store: React.FC<{}> = () => {
     }
   }, [FilterBox, modal, showFilter])
 
-
   return (
     <div>
       <StoreWrapper>
         <>
           <HeroWrapper className="shadow-sm position-relative mb-3 rounded">
-            <img src={BikeHero} alt="Hero" className="shadow-sm rounded" />
+            <img loading="eager" src={BikeHero} alt="Hero" className="shadow-sm rounded" />
             <div className="p-3 m-4 text-alt-light fw-bolder rounded">
               Reserve a Bike for any type of Journey.
             </div>
@@ -341,7 +341,7 @@ export const Store: React.FC<{}> = () => {
 
               <Title className="d-flex justify-content-between align-items-center gap-2 mb-2 ps-md-3">
                 <div className="">
-                  <button onClick={() => setShowFilter(true)} className="btn btn-sm p-0 m-0 d-flex d-md-none align-items-center gap-2">
+                  <button aria-label='toggle filter' onClick={() => setShowFilter(true)} className="btn btn-sm p-0 m-0 d-flex d-md-none align-items-center gap-2">
                     <Filter size={20} />
                     <h5 className="m-0">Filter</h5>
                   </button>
@@ -349,7 +349,7 @@ export const Store: React.FC<{}> = () => {
                 {
                   authenticated ?
                     <div className="d-flex justify-content-end align-items-center gap-2">
-                      <h5 className="h5 m-0">{availableBikes.length} Bikes</h5>
+                      <label htmlFor="date" className="h5 m-0">{availableBikes.length} Bikes</label>
                       <input type="date" min={today} id="date" className="form-control w-auto" defaultValue={dateFilter} onChange={(e) => setDateFilter(e.target.value)} />
                     </div>
                     : <></>
@@ -392,3 +392,5 @@ export const Store: React.FC<{}> = () => {
     </div >
   )
 }
+
+export default Store

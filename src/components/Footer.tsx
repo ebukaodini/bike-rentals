@@ -5,7 +5,7 @@ import Logo from '../assets/logo.svg'
 const Wrapper = styled.div`
   height: 150px;
   width: 100%;
-
+  
   @media (min-width: 768px) {
     height: 250px;
   }
@@ -35,7 +35,7 @@ export const Footer: React.FC<{}> = () => {
 
           <div className="h-100 d-flex gap-2 align-items-center">
             <LogoWrapper>
-              <Link to='/' className="">
+              <Link aria-label={"Go to Store"} to='/' className="">
                 <img src={Logo} alt="Bike Rentals" title="Bike Rentals" className="w-100 h-100" />
               </Link>
             </LogoWrapper>
