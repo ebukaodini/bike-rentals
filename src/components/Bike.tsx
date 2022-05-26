@@ -26,13 +26,11 @@ const BikeThumbnailWrapper = styled.div`
 const BikeDetails = styled.div``
 
 
-export const Bike: React.FC<{ bike: TBike, currentBike: number, setCurrentBike: Function, today: string }> = ({ bike, currentBike, setCurrentBike, today }) => {
+export const Bike: React.FC<{ bike: TBike, currentBike: number, setCurrentBike: Function, dateFrom: string, dateTo: string }> = ({ bike, currentBike, setCurrentBike, dateFrom, dateTo }) => {
   const { primary, grey } = useTheme()
   const rating = Math.floor(bike.rating / bike.ratingCount)
   const [toReserve, setToReserve] = useState<boolean>(false)
   const [isReserving, setIsReserving] = useState<boolean>(false)
-  const [dateFrom, setDateFrom] = useState<string>('')
-  const [dateTo, setDateTo] = useState<string>('')
   const { user } = useAuthStore()
   const { addReservation } = useReservationStore()
   const { toast } = useModalStore()
@@ -66,8 +64,6 @@ export const Bike: React.FC<{ bike: TBike, currentBike: number, setCurrentBike: 
         )
         setToReserve(false)
         setCurrentBike(0)
-        setDateFrom('')
-        setDateTo('')
       })
       .catch(error => {
         setIsReserving(false)
@@ -78,8 +74,6 @@ export const Bike: React.FC<{ bike: TBike, currentBike: number, setCurrentBike: 
   const handleCancel = () => {
     setToReserve(false)
     setCurrentBike(0)
-    setDateFrom('')
-    setDateTo('')
   }
 
   return (
@@ -92,9 +86,9 @@ export const Bike: React.FC<{ bike: TBike, currentBike: number, setCurrentBike: 
           toReserve === false || currentBike !== bike.id ?
             <>
               <div className="d-flex align-items-center justify-content-between">
-                <h6 className="m-0 fw-bolder">{bike.description} ({bike.color})</h6>
+                <h6 className="m-0 fw-bolder">{bike.description}</h6>
                 <span title={bike.color}>
-                  <Circle fill={bike.color} size={20} className='shadow-sm rounded-circle text-dark' />
+                  <Circle fill={bike.color} size={20} strokeWidth={1} color={'grey'} />
                 </span>
               </div>
               <div className="">{bike.model}</div>
@@ -124,14 +118,14 @@ export const Bike: React.FC<{ bike: TBike, currentBike: number, setCurrentBike: 
                   <label htmlFor="dateFrom" className="fw-bold">
                     From
                   </label>
-                  <input disabled={isReserving} type="date" id="dateFrom" min={today} className="form-control" defaultValue={dateFrom} onChange={(e) => setDateFrom(e.target.value)} />
+                  <input disabled type="date" id="dateFrom" className="form-control" defaultValue={dateFrom} />
                 </div>
 
                 <div className="w-100">
                   <label htmlFor="dateTo" className="fw-bold">
                     To
                   </label>
-                  <input disabled={isReserving} type="date" id="dateTo" min={dateFrom} className="form-control" defaultValue={dateTo} onChange={(e) => setDateTo(e.target.value)} />
+                  <input disabled type="date" id="dateTo" className="form-control" defaultValue={dateTo} />
                 </div>
 
               </div>
