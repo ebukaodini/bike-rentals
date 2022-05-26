@@ -106,7 +106,7 @@ const Reservations: React.FC<{}> = () => {
             toast(error.message, 'danger')
           })
 
-      })
+      }, undefined, 'Yes', 'No')
   }
 
   return (
@@ -165,7 +165,10 @@ const Reservations: React.FC<{}> = () => {
                                     {
                                       [0, 1, 2, 3, 4].map((rate, index) => (
                                         <button aria-label={'rake bike ' + rate} key={index}
-                                          disabled={reservation.isRated === true || reservation.isActive === false || (new Date(today)) < (new Date(reservation.reservedFrom))}
+                                          disabled={
+                                            reservation.isRated === true || reservation.isActive === false ||
+                                            (new Date(today).valueOf()) < (new Date(reservation.reservedFrom).valueOf())
+                                          }
                                           onClick={() => handleRateBike(reservation, bike, (rate + 1))}
                                           title={`Rate ${(rate + 1)}`} className='btn m-0 p-0'>
                                           <Star size={16} className='mb-1'
@@ -184,7 +187,11 @@ const Reservations: React.FC<{}> = () => {
                                 <td>
                                   <button
                                     onClick={() => handleCancelReservation(reservation)}
-                                    disabled={reservation.isActive === false || (new Date(today)) >= (new Date(reservation.reservedFrom))}
+                                    disabled={
+                                      reservation.isActive === false ||
+                                      ((new Date(today).valueOf()) >= (new Date(reservation.reservedFrom).valueOf()) &&
+                                        (new Date(today).valueOf()) <= (new Date(reservation.reservedTo).valueOf()))
+                                    }
                                     className="btn badge bg-danger text-light" title="Cancel reservation"
                                   >
                                     Cancel
@@ -200,6 +207,13 @@ const Reservations: React.FC<{}> = () => {
                       }
                     </tbody>
                   </table>
+                  
+                  <div className="alert a lert-warning text-danger py-1">
+                    <small className="fw-bold">Note:</small>
+                    <li className="">Rating can only be done during reservation period</li>
+                    <li className="">Cancellation can be done before or during reservation period</li>
+                  </div>
+
                 </div>
               </>
             </div>
