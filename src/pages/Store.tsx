@@ -160,7 +160,12 @@ const Store: React.FC<{}> = () => {
     setDateFilterFrom(today)
     setDateFilterTo(today)
     setFilterIsCleared(true)
-  }, [today])
+
+    if (showFilter === true) {
+      document.getElementById('closeFilterModal')?.click()
+      setShowFilter(false)
+    }
+  }, [showFilter, today])
 
   const handleFilter = useCallback((key: string, value: string | number, state?: boolean) => {
     let filters: string[] = []
@@ -197,8 +202,13 @@ const Store: React.FC<{}> = () => {
         ...filter,
         [key]: filters
       })
+      
+      if (showFilter === true) {
+        document.getElementById('closeFilterModal')?.click()
+        setShowFilter(false)
+      }
     }
-  }, [filter])
+  }, [filter, showFilter])
 
   const FilterBox = useCallback(() => {
 
@@ -209,6 +219,7 @@ const Store: React.FC<{}> = () => {
           showFilter === true &&
           <div className="d-flex mb-1 justify-content-end">
             <button type="button"
+              id="closeFilterModal"
               name='Close'
               className="btn-close d-block d-md-none"
               data-bs-dismiss="modal"
