@@ -189,8 +189,7 @@ const Reservations: React.FC<{}> = () => {
                                     onClick={() => handleCancelReservation(reservation)}
                                     disabled={
                                       reservation.isActive === false ||
-                                      ((new Date(today).valueOf()) >= (new Date(reservation.reservedFrom).valueOf()) &&
-                                        (new Date(today).valueOf()) <= (new Date(reservation.reservedTo).valueOf()))
+                                      (new Date(today).valueOf()) > (new Date(reservation.reservedTo).valueOf())
                                     }
                                     className="btn badge bg-danger text-light" title="Cancel reservation"
                                   >
@@ -207,13 +206,12 @@ const Reservations: React.FC<{}> = () => {
                       }
                     </tbody>
                   </table>
-                  
-                  <div className="alert a lert-warning text-danger py-1">
-                    <small className="fw-bold">Note:</small>
-                    <li className="">Rating can only be done during reservation period</li>
-                    <li className="">Cancellation can be done before or during reservation period</li>
-                  </div>
+                </div>
 
+                <div className="alert a lert-warning text-danger py-1">
+                  <small className="fw-bold">Note:</small>
+                  <li className="">Rating can only be done during reservation period</li>
+                  <li className="">Cancellation can be done before or during reservation period</li>
                 </div>
               </>
             </div>
