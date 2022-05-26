@@ -62,7 +62,8 @@ const Store: React.FC<{}> = () => {
   const { bikes } = useBikeStore()
   const { authenticated } = useAuthStore()
   const { reservations } = useReservationStore()
-  const [dateFilter, setDateFilter] = useState<string>('')
+  const [dateFilterFrom, setDateFilterFrom] = useState<string>('')
+  const [dateFilterTo, setDateFilterTo] = useState<string>('')
   const [today, setToday] = useState<string>('')
   const [currentBike, setCurrentBike] = useState<number>(0)
   const [availableBikes, setAvailableBikes] = useState<TBike[]>([])
@@ -82,17 +83,27 @@ const Store: React.FC<{}> = () => {
     const d = new Date()
     const today = `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, '0')}-${d.getDate().toString().padStart(2, '0')}`
     setToday(today)
-    setDateFilter(today)
+    setDateFilterFrom(today)
+    setDateFilterTo(today)
   }, [])
 
   useEffect(() => {
+
     // get unavailable bikes id for the filtered date
     let unavailableBikes: number[] =
       reservations
-        // filter Date should fall within reservation period
         .filter(r =>
-          (new Date(dateFilter)) >= (new Date(r.reservedFrom)) &&
-          (new Date(dateFilter)) <= (new Date(r.reservedTo))
+          // filter start date can't be within bike reserved date
+          ((new Date(dateFilterFrom).valueOf()) >= (new Date(r.reservedFrom).valueOf()) &&
+            (new Date(dateFilterFrom).valueOf()) <= (new Date(r.reservedTo).valueOf()))
+          ||
+          // filter end date can't be within bike reserved date
+          ((new Date(dateFilterTo).valueOf()) >= (new Date(r.reservedFrom).valueOf()) &&
+            (new Date(dateFilterTo).valueOf()) <= (new Date(r.reservedTo).valueOf()))
+          ||
+          // filter start and end date can't be around bike reserved date
+          ((new Date(dateFilterFrom).valueOf()) < (new Date(r.reservedFrom).valueOf()) &&
+            (new Date(dateFilterTo).valueOf()) > (new Date(r.reservedTo).valueOf()))
         )
         // confirm that reservation is still active
         .filter(r => r.isActive)
@@ -105,33 +116,28 @@ const Store: React.FC<{}> = () => {
     const aBikes = bikes.filter(b => !unavailableBikes.includes(b.id))
     setAvailableBikes(aBikes)
 
-  }, [bikes, reservations, dateFilter])
+  }, [bikes, reservations, dateFilterFrom, dateFilterTo])
 
   useEffect(() => {
     if (filterIsCleared === false) {
-      // filter models
-      const filterModel = availableBikes.filter(b => filter.model.includes(b.model))
-      // filter colors
-      const filterColor = availableBikes.filter(b => filter.color.includes(b.color))
-      // filter location
-      const filterLocation = availableBikes.filter(b => filter.location.includes(b.location))
-      // filter ratings
-      const filterRating = availableBikes.filter(b => Math.round(b.rating / b.ratingCount) >= filter.rating)
 
-      const filtered: TBike[] = []
-      const indexes: number[] = []
-      const merge = [
-        ...filterModel, ...filterColor, ...filterLocation, ...filterRating
-      ]
+      let filtered = availableBikes
 
-      merge.forEach(b => {
-        if (!indexes.includes(b.id)) {
-          filtered.push(b)
-          indexes.push(b.id)
-        }
-      })
+      if (filter.model.length > 0) {
+        filtered = filtered.filter(b => filter.model.includes(b.model))
+      }
 
-      console.log(filter)
+      if (filter.color.length > 0) {
+        filtered = filtered.filter(b => filter.color.includes(b.color))
+      }
+
+      if (filter.location.length > 0) {
+        filtered = filtered.filter(b => filter.location.includes(b.location))
+      }
+
+      if (filter.rating > 0) {
+        filtered = filtered.filter(b => Math.round(b.rating / b.ratingCount) >= filter.rating)
+      }
 
       setFilteredBikes(
         (
@@ -142,17 +148,20 @@ const Store: React.FC<{}> = () => {
         ) ? availableBikes : filtered
       )
     }
-  }, [availableBikes, filter, filterIsCleared])
+  }, [availableBikes, filter.color, filter.location, filter.model, filter.rating, filterIsCleared])
 
-  const clearFilter = () => {
+  const clearFilter = useCallback(() => {
     setFilter({
       model: [],
       color: [],
       location: [],
       rating: 0
     })
+    setDateFilterFrom(today)
+    setDateFilterTo(today)
     setFilterIsCleared(true)
-  }
+  }, [today])
+
   const handleFilter = useCallback((key: string, value: string | number, state?: boolean) => {
     let filters: string[] = []
     setFilterIsCleared(false)
@@ -217,6 +226,32 @@ const Store: React.FC<{}> = () => {
         </Title>
 
         <div className="bg-white shadow-sm rounded p-3">
+
+          {
+            authenticated &&
+            <FilterWrapper className="mb-3 bg-light p-3 rounded">
+              <h6 className="fw-bold">Reserve Bike</h6>
+              <div className="d-flex flex-column gap-1 mb-2">
+                <div className="w-100">
+                  <label htmlFor="dateFrom" className="fw-bold">
+                    From
+                  </label>
+                  <input type="date" min={today} id="dateFrom"
+                    className="form-control w-100" defaultValue={dateFilterFrom}
+                    onChange={(e) => { setDateFilterFrom(e.target.value); setDateFilterTo(e.target.value) }} />
+                </div>
+
+                <div className="w-100">
+                  <label htmlFor="dateTo" className="fw-bold">
+                    To
+                  </label>
+                  <input type="date" min={dateFilterFrom} id="dateTo"
+                    className="form-control w-100" value={dateFilterTo}
+                    onChange={(e) => setDateFilterTo(e.target.value)} />
+                </div>
+              </div>
+            </FilterWrapper>
+          }
 
           <FilterWrapper className="mb-3">
             <h6>Model</h6>
@@ -312,7 +347,7 @@ const Store: React.FC<{}> = () => {
 
       </FilterBoxWrapper>
     )
-  }, [filter.color, filter.location, filter.model, filter.rating, grey, handleFilter, primary, showFilter])
+  }, [authenticated, clearFilter, dateFilterFrom, dateFilterTo, filter.color, filter.location, filter.model, filter.rating, grey, handleFilter, primary, showFilter, today])
 
   useEffect(() => {
     if (showFilter) {
@@ -346,14 +381,12 @@ const Store: React.FC<{}> = () => {
                     <h5 className="m-0">Filter</h5>
                   </button>
                 </div>
-                {
-                  authenticated ?
-                    <div className="d-flex justify-content-end align-items-center gap-2">
-                      <label htmlFor="date" className="h5 m-0">{availableBikes.length} Bikes</label>
-                      <input type="date" min={today} id="date" className="form-control w-auto" defaultValue={dateFilter} onChange={(e) => setDateFilter(e.target.value)} />
-                    </div>
-                    : <></>
-                }
+                <div className="h5 m-0">
+                  {filterIsCleared === true ? availableBikes.length : filteredBikes.length}
+                  {
+                    (filterIsCleared === true ? availableBikes.length : filteredBikes.length) > 1 ? ' Bikes Available' : ' Bike Available'
+                  }
+                </div>
               </Title>
 
               <BikeList className="d-flex flex-wrap gap-0">
@@ -364,21 +397,21 @@ const Store: React.FC<{}> = () => {
                       availableBikes.map((bike, index) => {
                         return (
                           <BikeWrapper key={index} className="col-12 col-md-4 mb-3 ps-md-3">
-                            <Bike bike={bike} currentBike={currentBike} setCurrentBike={setCurrentBike} today={today} />
+                            <Bike bike={bike} currentBike={currentBike} setCurrentBike={setCurrentBike} dateFrom={dateFilterFrom} dateTo={dateFilterTo} />
                           </BikeWrapper>
                         )
                       })
-                      : <p>No available bikes.</p>
+                      : <p>No available bike.</p>
                     :
                     filteredBikes.length > 0 ?
                       filteredBikes.map((bike, index) => {
                         return (
                           <BikeWrapper key={index} className="col-12 col-md-4 mb-3 ps-md-3">
-                            <Bike bike={bike} currentBike={currentBike} setCurrentBike={setCurrentBike} today={today} />
+                            <Bike bike={bike} currentBike={currentBike} setCurrentBike={setCurrentBike} dateFrom={dateFilterFrom} dateTo={dateFilterTo} />
                           </BikeWrapper>
                         )
                       })
-                      : <p>No bikes match filter.</p>
+                      : <p>No Bike match filter.</p>
                 }
 
               </BikeList>
